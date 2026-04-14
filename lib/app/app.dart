@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nexplay/core/theme/app_theme.dart';
+import 'package:nexplay/features/home/view/home_page.dart';
 import 'package:nexplay/features/auth/view/login_page.dart';
 
 class App extends StatelessWidget {
@@ -9,6 +11,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: AppTheme.darkTheme,
       home: const LoginPage(),
     );
   }
