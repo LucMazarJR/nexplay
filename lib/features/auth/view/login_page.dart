@@ -27,33 +27,40 @@ class _LoginPageState extends State<LoginPage> {
           final devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
           final cacheWidth = (constraints.maxWidth * devicePixelRatio).round();
 
-          return Stack(
-            fit: StackFit.expand,
-            children: [
-              Image.asset(
-                'assets/images/home_bg.png',
-                fit: BoxFit.cover,
-                cacheWidth: cacheWidth,
-                filterQuality: FilterQuality.medium,
-                errorBuilder: (context, error, stackTrace) {
-                  return const Center(
-                    child: Text('Falha ao carregar imagem de fundo.'),
-                  );
-                },
-              ),
-              DecoratedBox(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment(0, -2),
-                    end: Alignment(0, 1),
-                    colors: [
-                      Colors.transparent,
-                      Theme.of(context).colorScheme.surface,
-                    ],
+          return Expanded(
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Image.asset(
+                  'assets/images/home_bg.png',
+                  fit: BoxFit.cover,
+                  cacheWidth: cacheWidth,
+                  filterQuality: FilterQuality.medium,
+                  errorBuilder: (context, error, stackTrace) {
+                    return const Center(
+                      child: Text('Falha ao carregar imagem de fundo.'),
+                    );
+                  },
+                ),
+                DecoratedBox(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment(0, -2),
+                      end: Alignment(0, 1),
+                      colors: [
+                        Colors.transparent,
+                        Theme.of(context).colorScheme.surface,
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+                const Expanded(
+                  child: Column(
+                    children: [SizedBox(height: 300), Text('LoginPage')],
+                  ),
+                ),
+              ],
+            ),
           );
         },
       ),
