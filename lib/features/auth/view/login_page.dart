@@ -121,7 +121,14 @@ class _LoginPageState extends State<LoginPage> {
                                     controller: _emailController,
                                     keyboardType: TextInputType.emailAddress,
                                     autofillHints: const [AutofillHints.email],
-                                    decoration: const InputDecoration(
+                                    decoration: InputDecoration(
+                                      hintStyle: TextStyle(
+                                        color: Color.lerp(
+                                          colors.onSurface,
+                                          Colors.black,
+                                          0.5,
+                                        ),
+                                      ),
                                       labelText: 'E-mail',
                                       hintText: 'voce@email.com',
                                       prefixIcon: Icon(Icons.mail_outline),
