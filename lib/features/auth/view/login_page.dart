@@ -182,17 +182,36 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                   const SizedBox(height: 18),
 
-                                  CheckboxListTile(
-                                    value: _keepLoggedIn,
-                                    contentPadding: EdgeInsets.zero,
-                                    controlAffinity:
-                                        ListTileControlAffinity.leading,
-                                    title: const Text('Manter conectado'),
-                                    onChanged: (value) {
-                                      setState(() {
-                                        _keepLoggedIn = value ?? false;
-                                      });
-                                    },
+                                  Theme(
+                                    data: Theme.of(context).copyWith(
+                                      checkboxTheme: Theme.of(context)
+                                          .checkboxTheme
+                                          .copyWith(
+                                            shape: const CircleBorder(),
+                                          ),
+                                    ),
+                                    child: InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          _keepLoggedIn = !_keepLoggedIn;
+                                        });
+                                      },
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Checkbox(
+                                            value: _keepLoggedIn,
+                                            onChanged: (value) {
+                                              setState(() {
+                                                _keepLoggedIn = value ?? false;
+                                              });
+                                            },
+                                          ),
+                                          const SizedBox(width: 2),
+                                          const Text('Manter conectado'),
+                                        ],
+                                      ),
+                                    ),
                                   ),
 
                                   const SizedBox(height: 10),

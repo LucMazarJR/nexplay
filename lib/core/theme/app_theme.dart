@@ -16,8 +16,40 @@ class AppTheme {
 
     final inputDecorationTheme = InputDecorationTheme(
       filled: true,
-      fillColor: colorScheme.surface,
-      border: OutlineInputBorder(),
+      fillColor: colorScheme.surface.withValues(alpha: 0.72),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.zero,
+        borderSide: BorderSide(
+          color: colorScheme.onSurface.withValues(alpha: 0.16),
+          width: 1,
+        ),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.zero,
+        borderSide: BorderSide(
+          color: colorScheme.onSurface.withValues(alpha: 0.16),
+          width: 1,
+        ),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.zero,
+        borderSide: BorderSide(
+          color: colorScheme.primary.withValues(alpha: 0.7),
+          width: 1.2,
+        ),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.zero,
+        borderSide: BorderSide(
+          color: colorScheme.error.withValues(alpha: 0.85),
+          width: 1,
+        ),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.zero,
+        borderSide: BorderSide(color: colorScheme.error, width: 1.2),
+      ),
     );
 
     final cardThemeData = CardThemeData(
