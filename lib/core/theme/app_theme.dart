@@ -17,7 +17,7 @@ class AppTheme {
     final inputDecorationTheme = InputDecorationTheme(
       filled: true,
       fillColor: colorScheme.surface,
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+      border: OutlineInputBorder(),
     );
 
     final cardThemeData = CardThemeData(
