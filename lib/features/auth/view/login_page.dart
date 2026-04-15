@@ -13,6 +13,7 @@ class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _obscurePassword = true;
+  bool _keepLoggedIn = false;
 
   @override
   void dispose() {
@@ -135,8 +136,7 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                     validator: (value) {
                                       final text = value?.trim() ?? '';
-                                      if (text.isEmpty)
-                                        return 'Informe seu e-mail';
+                                      if (text.isEmpty) return 'Informe e-mail';
                                       if (!text.contains('@') ||
                                           !text.contains('.')) {
                                         return 'E-mail invalido';
@@ -144,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
                                       return null;
                                     },
                                   ),
-                                  const SizedBox(height: 12),
+                                  const SizedBox(height: 22),
                                   TextFormField(
                                     controller: _passwordController,
                                     obscureText: _obscurePassword,
@@ -180,15 +180,23 @@ class _LoginPageState extends State<LoginPage> {
                                       return null;
                                     },
                                   ),
-                                  const SizedBox(height: 8),
-                                  Align(
-                                    alignment: Alignment.centerRight,
-                                    child: TextButton(
-                                      onPressed: () {},
-                                      child: const Text('Esqueci minha senha'),
-                                    ),
+                                  const SizedBox(height: 18),
+
+                                  CheckboxListTile(
+                                    value: _keepLoggedIn,
+                                    contentPadding: EdgeInsets.zero,
+                                    controlAffinity:
+                                        ListTileControlAffinity.leading,
+                                    title: const Text('Manter conectado'),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _keepLoggedIn = value ?? false;
+                                      });
+                                    },
                                   ),
-                                  const SizedBox(height: 8),
+
+                                  const SizedBox(height: 10),
+
                                   SizedBox(
                                     width: double.infinity,
                                     child: FilledButton.icon(
@@ -203,21 +211,6 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                   ),
                                   const SizedBox(height: 14),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Nao tem conta?',
-                                        style: TextStyle(
-                                          color: colors.onSurfaceVariant,
-                                        ),
-                                      ),
-                                      TextButton(
-                                        onPressed: () {},
-                                        child: const Text('Criar agora'),
-                                      ),
-                                    ],
-                                  ),
                                 ],
                               ),
                             ),
