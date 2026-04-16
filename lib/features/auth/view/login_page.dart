@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
+import 'package:nexplay/features/auth/viewmodel/login_view_model.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -12,22 +13,34 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  bool _obscurePassword = true;
-  bool _keepLoggedIn = false;
+  late final LoginViewModel _viewModel;
+
+  @override
+  void initState() {
+    super.initState();
+    _viewModel = LoginViewModel();
+  }
 
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _viewModel.dispose();
     super.dispose();
   }
 
-  void _submitLogin() {
+  Future<void> _submitLogin() async {
     if (!(_formKey.currentState?.validate() ?? false)) return;
 
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(const SnackBar(content: Text('Login enviado.')));
+    final result = await _viewModel.submit(
+      email: _emailController.text,
+      password: _passwordController.text,
+    );
+
+    if (!mounted) return;
+
+    final messenger = ScaffoldMessenger.of(context);
+    messenger.showSnackBar(SnackBar(content: Text(result.message)));
   }
 
   @override
@@ -93,145 +106,164 @@ class _LoginPageState extends State<LoginPage> {
                                 color: Colors.white.withValues(alpha: 0.12),
                               ),
                             ),
-                            child: Form(
-                              key: _formKey,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    'Bem vindo de volta',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineMedium
-                                        ?.copyWith(fontWeight: FontWeight.bold),
-                                  ),
-                                  const SizedBox(height: 6),
-                                  Text(
-                                    'Insira suas credenciais para entrar',
-                                    style: TextStyle(
-                                      color: Color.lerp(
-                                        colors.onSurface,
-                                        Colors.black,
-                                        0.5,
+                            child: AnimatedBuilder(
+                              animation: _viewModel,
+                              builder: (context, child) {
+                                return Form(
+                                  key: _formKey,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        'Bem vindo de volta',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineMedium
+                                            ?.copyWith(
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                       ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 18),
-                                  TextFormField(
-                                    controller: _emailController,
-                                    keyboardType: TextInputType.emailAddress,
-                                    autofillHints: const [AutofillHints.email],
-                                    decoration: InputDecoration(
-                                      hintStyle: TextStyle(
-                                        color: Color.lerp(
-                                          colors.onSurface,
-                                          Colors.black,
-                                          0.5,
+                                      const SizedBox(height: 6),
+                                      Text(
+                                        'Insira suas credenciais para entrar',
+                                        style: TextStyle(
+                                          color: Color.lerp(
+                                            colors.onSurface,
+                                            Colors.black,
+                                            0.5,
+                                          ),
                                         ),
                                       ),
-                                      labelText: 'E-mail',
-                                      hintText: 'voce@email.com',
-                                      prefixIcon: Icon(Icons.mail_outline),
-                                    ),
-                                    validator: (value) {
-                                      final text = value?.trim() ?? '';
-                                      if (text.isEmpty) return 'Informe e-mail';
-                                      if (!text.contains('@') ||
-                                          !text.contains('.')) {
-                                        return 'E-mail invalido';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                  const SizedBox(height: 22),
-                                  TextFormField(
-                                    controller: _passwordController,
-                                    obscureText: _obscurePassword,
-                                    autofillHints: const [
-                                      AutofillHints.password,
-                                    ],
-                                    decoration: InputDecoration(
-                                      labelText: 'Senha',
-                                      prefixIcon: const Icon(
-                                        Icons.lock_outline,
-                                      ),
-                                      suffixIcon: IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            _obscurePassword =
-                                                !_obscurePassword;
-                                          });
-                                        },
-                                        icon: Icon(
-                                          _obscurePassword
-                                              ? Icons.visibility_off_outlined
-                                              : Icons.visibility_outlined,
-                                        ),
-                                      ),
-                                    ),
-                                    validator: (value) {
-                                      if ((value ?? '').isEmpty) {
-                                        return 'Informe sua senha';
-                                      }
-                                      if ((value ?? '').length < 6) {
-                                        return 'Minimo de 6 caracteres';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                  const SizedBox(height: 18),
-
-                                  Theme(
-                                    data: Theme.of(context).copyWith(
-                                      checkboxTheme: Theme.of(context)
-                                          .checkboxTheme
-                                          .copyWith(
-                                            shape: const CircleBorder(),
-                                          ),
-                                    ),
-                                    child: InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          _keepLoggedIn = !_keepLoggedIn;
-                                        });
-                                      },
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Checkbox(
-                                            value: _keepLoggedIn,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                _keepLoggedIn = value ?? false;
-                                              });
-                                            },
-                                          ),
-                                          const SizedBox(width: 2),
-                                          const Text('Manter conectado'),
+                                      const SizedBox(height: 18),
+                                      TextFormField(
+                                        controller: _emailController,
+                                        enabled: !_viewModel.isLoading,
+                                        keyboardType:
+                                            TextInputType.emailAddress,
+                                        autofillHints: const [
+                                          AutofillHints.email,
                                         ],
-                                      ),
-                                    ),
-                                  ),
-
-                                  const SizedBox(height: 10),
-
-                                  SizedBox(
-                                    width: double.infinity,
-                                    child: FilledButton.icon(
-                                      onPressed: _submitLogin,
-                                      icon: const Icon(Icons.login),
-                                      label: const Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          vertical: 12,
+                                        decoration: InputDecoration(
+                                          hintStyle: TextStyle(
+                                            color: Color.lerp(
+                                              colors.onSurface,
+                                              Colors.black,
+                                              0.5,
+                                            ),
+                                          ),
+                                          labelText: 'E-mail',
+                                          hintText: 'voce@email.com',
+                                          prefixIcon: const Icon(
+                                            Icons.mail_outline,
+                                          ),
                                         ),
-                                        child: Text('Entrar'),
+                                        validator: _viewModel.validateEmail,
                                       ),
-                                    ),
+                                      const SizedBox(height: 22),
+                                      TextFormField(
+                                        controller: _passwordController,
+                                        enabled: !_viewModel.isLoading,
+                                        obscureText: _viewModel.obscurePassword,
+                                        autofillHints: const [
+                                          AutofillHints.password,
+                                        ],
+                                        decoration: InputDecoration(
+                                          labelText: 'Senha',
+                                          prefixIcon: const Icon(
+                                            Icons.lock_outline,
+                                          ),
+                                          suffixIcon: IconButton(
+                                            onPressed: _viewModel
+                                                .toggleObscurePassword,
+                                            icon: Icon(
+                                              _viewModel.obscurePassword
+                                                  ? Icons
+                                                        .visibility_off_outlined
+                                                  : Icons.visibility_outlined,
+                                            ),
+                                          ),
+                                        ),
+                                        validator: _viewModel.validatePassword,
+                                      ),
+                                      const SizedBox(height: 18),
+                                      Text(
+                                        'Sem registro nesta tela. Use um usuario ja cadastrado no Firebase.',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall
+                                            ?.copyWith(
+                                              color: colors.onSurface
+                                                  .withValues(alpha: 0.72),
+                                            ),
+                                      ),
+                                      const SizedBox(height: 12),
+                                      Theme(
+                                        data: Theme.of(context).copyWith(
+                                          checkboxTheme: Theme.of(context)
+                                              .checkboxTheme
+                                              .copyWith(
+                                                shape: const CircleBorder(),
+                                              ),
+                                        ),
+                                        child: InkWell(
+                                          onTap: () {
+                                            _viewModel.setKeepLoggedIn(
+                                              !_viewModel.keepLoggedIn,
+                                            );
+                                          },
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Checkbox(
+                                                value: _viewModel.keepLoggedIn,
+                                                onChanged: (value) {
+                                                  _viewModel.setKeepLoggedIn(
+                                                    value ?? false,
+                                                  );
+                                                },
+                                              ),
+                                              const SizedBox(width: 2),
+                                              const Text('Manter conectado'),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      SizedBox(
+                                        width: double.infinity,
+                                        child: FilledButton.icon(
+                                          onPressed: _viewModel.isLoading
+                                              ? null
+                                              : _submitLogin,
+                                          icon: _viewModel.isLoading
+                                              ? const SizedBox(
+                                                  width: 18,
+                                                  height: 18,
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                        strokeWidth: 2,
+                                                      ),
+                                                )
+                                              : const Icon(Icons.login),
+                                          label: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                              vertical: 12,
+                                            ),
+                                            child: Text(
+                                              _viewModel.isLoading
+                                                  ? 'Entrando...'
+                                                  : 'Entrar',
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 14),
+                                    ],
                                   ),
-                                  const SizedBox(height: 14),
-                                ],
-                              ),
+                                );
+                              },
                             ),
                           ),
                         ),
