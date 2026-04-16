@@ -58,7 +58,7 @@ class LoginViewModel extends ChangeNotifier {
 
       await _authService.login(credentials);
 
-      return const LoginResult.success('Login enviado.');
+      return const LoginResult.success('Login realizado com sucesso.');
     } on AuthException catch (error) {
       return LoginResult.failure(error.message);
     } catch (_) {

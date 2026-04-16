@@ -139,6 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                                       const SizedBox(height: 18),
                                       TextFormField(
                                         controller: _emailController,
+                                        enabled: !_viewModel.isLoading,
                                         keyboardType:
                                             TextInputType.emailAddress,
                                         autofillHints: const [
@@ -163,6 +164,7 @@ class _LoginPageState extends State<LoginPage> {
                                       const SizedBox(height: 22),
                                       TextFormField(
                                         controller: _passwordController,
+                                        enabled: !_viewModel.isLoading,
                                         obscureText: _viewModel.obscurePassword,
                                         autofillHints: const [
                                           AutofillHints.password,
@@ -186,6 +188,17 @@ class _LoginPageState extends State<LoginPage> {
                                         validator: _viewModel.validatePassword,
                                       ),
                                       const SizedBox(height: 18),
+                                      Text(
+                                        'Sem registro nesta tela. Use um usuario ja cadastrado no Firebase.',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall
+                                            ?.copyWith(
+                                              color: colors.onSurface
+                                                  .withValues(alpha: 0.72),
+                                            ),
+                                      ),
+                                      const SizedBox(height: 12),
                                       Theme(
                                         data: Theme.of(context).copyWith(
                                           checkboxTheme: Theme.of(context)
