@@ -2,6 +2,13 @@
 
 Gerenciador de jogos com wishlist desenvolvido em Flutter para a disciplina de Desenvolvimento de Software para Dispositivos Moveis I.
 
+[![Latest Release](https://img.shields.io/github/v/release/LucMazarJR/nexplay?label=release)](https://github.com/LucMazarJR/nexplay/releases/latest)
+
+## Download da build
+
+- Ultima release: https://github.com/LucMazarJR/nexplay/releases/latest
+- Arquivos da release (APK): publique o APK como asset da release para download direto.
+
 ## Objetivo
 
 Construir um app mobile funcional para catalogar jogos, pesquisar titulos e manter uma wishlist pessoal, aplicando boas praticas de arquitetura com Flutter.
