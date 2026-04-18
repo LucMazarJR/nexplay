@@ -1,95 +1,142 @@
 # Nexplay
 
-Um gerenciador de jogos com wishlist desenvolvido em **Flutter** como projeto para a disciplina de _Desenvolvimento de Software para Dispositivos Móveis I_.
-
-## Objetivo
-
-Este projeto tem como objetivo **aprender Flutter e desenvolvimento mobile** enquanto se constrói uma aplicação funcional para gerenciar uma biblioteca pessoal de jogos com sistema de desejos (wishlist).
-
-## Funcionalidades
-
-### Implementadas
-
-- **Autenticação com Firebase** - Login seguro para sincronização de dados do usuário
-- **Integração com RAWG API** - Busca de dados de jogos em tempo real
-- **Sistema de Wishlist** - Salve seus jogos favoritos
-- **Persistência de Dados** - Dados do usuário salvos no Firebase
-
-### Em Desenvolvimento
-
-# Nexplay
-
 Gerenciador de jogos com wishlist desenvolvido em Flutter para a disciplina de Desenvolvimento de Software para Dispositivos Moveis I.
 
 ## Objetivo
 
-Construir um app mobile funcional para catalogar jogos, pesquisar novos titulos e manter uma wishlist pessoal, aplicando boas praticas de arquitetura com Flutter.
+Construir um app mobile funcional para catalogar jogos, pesquisar titulos e manter uma wishlist pessoal, aplicando boas praticas de arquitetura com Flutter.
 
-## O que foi feito
+## O que foi implementado
 
-- Autenticacao com Firebase (login por email e senha).
-- Integracao com RAWG API para listagem e detalhes de jogos.
-- Tela de listagem com filtros por plataforma.
-- Tela de detalhes do jogo.
-- Estrutura em MVVM nas features principais.
-- Configuracao de ambiente com `.env.example` para a chave da RAWG.
-- Ajuste de estabilidade no core (correcao de crash de build).
+- Autenticacao com Firebase (email e senha).
+- Integracao com RAWG API para listagem de jogos.
+- Tela de detalhes dos jogos.
+- Filtros por plataforma na listagem.
+- Persistencia de dados com Firestore.
+- Organizacao por features usando padrao MVVM.
+- Correcao de estabilidade no core (fix de crash de build).
 
 ## Funcionalidades
 
-### Implementadas
+### Disponiveis
 
 - Login com Firebase Authentication.
 - Listagem de jogos consumindo RAWG.
-- Filtros de jogos por plataforma.
+- Filtros por plataforma.
 - Visualizacao de detalhes de cada jogo.
-- Wishlist e persistencia de dados do usuario.
+- Wishlist com persistencia para o usuario autenticado.
 
-### Em desenvolvimento
+### Proximos passos
 
 - Busca avancada de jogos.
 - Selecao aleatoria de jogos da wishlist.
 
-## Tecnologias
+## Stack
 
 - Flutter
 - Dart
-- Firebase (Auth e Firestore)
-- RAWG API
+- Firebase Core
+- Firebase Auth
+- Cloud Firestore
+- HTTP
+- flutter_dotenv
+
+## Fotos do app
+
+### Tela 1
+
+![Tela 1](public/tela1.jpeg)
+
+### Tela 2
+
+![Tela 2](public/tela2.jpeg)
+
+### Tela 3
+
+![Tela 3](public/tela3.jpeg)
+
+## Arquitetura
+
+![Diagrama de arquitetura](public/arquitetura.png)
+
+## Estrutura do projeto
+
+```text
+lib/
+	app/
+	core/
+	features/
+		auth/
+			model/
+			service/
+			view/
+			viewmodel/
+		games/
+			model/
+			service/
+			view/
+			viewmodel/
+	main.dart
+```
+
+## Pre-requisitos
+
+- Flutter SDK instalado.
+- Dart SDK (vem com Flutter).
+- Projeto Firebase configurado.
+- Chave da RAWG API.
+
+## Configuracao local
+
+1. Clone o repositorio.
+2. Crie o arquivo `.env` com base no `.env.example`.
+3. Adicione a chave da RAWG no `.env`.
+4. Adicione os arquivos de configuracao do Firebase para a plataforma.
+
+Exemplo de `.env`:
+
+```env
+RAWG_API_KEY=sua_chave_aqui
+```
+
+Arquivos Firebase necessarios:
+
+- Android: `android/app/google-services.json`
+- iOS/macOS (se usar): `GoogleService-Info.plist`
 
 ## Como rodar
 
-```bash
-# Clone o repositorio
+### Windows (PowerShell)
+
+```powershell
 git clone <url-do-repositorio>
-
-# Entre na pasta
 cd nexplay
-
-# Crie o .env a partir do exemplo
-cp .env.example .env
-
-# No .env, informe a chave da RAWG
-# RAWG_API_KEY=...
-
-# Instale as dependencias
+Copy-Item .env.example .env
 flutter pub get
-
-# Execute o app
 flutter run
 ```
 
-## Configuracao de login
+### Linux/macOS
+
+```bash
+git clone <url-do-repositorio>
+cd nexplay
+cp .env.example .env
+flutter pub get
+flutter run
+```
+
+## Fluxo de login
 
 - O app usa Firebase Authentication (email/senha).
 - Nao ha tela de cadastro no app.
-- Crie usuarios diretamente no console do Firebase.
+- Crie os usuarios no console do Firebase.
 
-## Configuracao Firebase local
+## Troubleshooting rapido
 
-- O repositorio nao versiona arquivos sensiveis.
-- Adicione localmente `android/app/google-services.json`.
-- Para iOS/macOS, adicione `GoogleService-Info.plist` nas pastas da plataforma.
+- Erro de `.env` nao encontrado: confirme se o arquivo `.env` existe na raiz.
+- Erro de Firebase no Android: confirme `android/app/google-services.json` valido.
+- Erro de dependencias: rode `flutter clean` e depois `flutter pub get`.
 
 ## Plataforma alvo
 
