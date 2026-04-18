@@ -1,70 +1,147 @@
 # Nexplay
 
-Um gerenciador de jogos com wishlist desenvolvido em **Flutter** como projeto para a disciplina de _Desenvolvimento de Software para Dispositivos Móveis I_.
+Gerenciador de jogos com wishlist desenvolvido em Flutter para a disciplina de Desenvolvimento de Software para Dispositivos Moveis I.
 
 ## Objetivo
 
-Este projeto tem como objetivo **aprender Flutter e desenvolvimento mobile** enquanto se constrói uma aplicação funcional para gerenciar uma biblioteca pessoal de jogos com sistema de desejos (wishlist).
+Construir um app mobile funcional para catalogar jogos, pesquisar titulos e manter uma wishlist pessoal, aplicando boas praticas de arquitetura com Flutter.
+
+## O que foi implementado
+
+- Autenticacao com Firebase (email e senha).
+- Integracao com RAWG API para listagem de jogos.
+- Tela de detalhes dos jogos.
+- Filtros por plataforma na listagem.
+- Persistencia de dados com Firestore.
+- Organizacao por features usando padrao MVVM.
+- Correcao de estabilidade no core (fix de crash de build).
 
 ## Funcionalidades
 
-### Implementadas
+### Disponiveis
 
-- **Autenticação com Firebase** - Login seguro para sincronização de dados do usuário
-- **Integração com RAWG API** - Busca de dados de jogos em tempo real
-- **Sistema de Wishlist** - Salve seus jogos favoritos
-- **Persistência de Dados** - Dados do usuário salvos no Firebase
+- Login com Firebase Authentication.
+- Listagem de jogos consumindo RAWG.
+- Filtros por plataforma.
+- Visualizacao de detalhes de cada jogo.
+- Wishlist com persistencia para o usuario autenticado.
 
-### Em Desenvolvimento
+### Proximos passos
 
-- Busca avançada de jogos
-- Seleção aleatória de jogos da wishlist
+- Busca avancada de jogos.
+- Selecao aleatoria de jogos da wishlist.
 
-## Tecnologias
+## Stack
 
-- **Flutter** - Framework mobile multiplataforma
-- **Firebase** - Backend, autenticação e banco de dados
-- **RAWG API** - Base de dados de jogos
-- **Dart** - Linguagem de programação
+- Flutter
+- Dart
+- Firebase Core
+- Firebase Auth
+- Cloud Firestore
+- HTTP
+- flutter_dotenv
 
-## Como Começar
+## Fotos do app
 
-```bash
-# Clone o repositório
-git clone [seu-repositorio]
+### Tela 1
 
-# Crie o arquivo de ambiente baseado no exemplo
-# (copie .env.example para .env)
+![Tela 1](public/tela1.jpeg)
 
-# Adicione sua chave da RAWG no .env
-# RAWG_API_KEY=...
+### Tela 2
 
-# Instale as dependências
+![Tela 2](public/tela2.jpeg)
+
+### Tela 3
+
+![Tela 3](public/tela3.jpeg)
+
+## Arquitetura
+
+![Diagrama de arquitetura](public/arquitetura.png)
+
+## Estrutura do projeto
+
+```text
+lib/
+	app/
+	core/
+	features/
+		auth/
+			model/
+			service/
+			view/
+			viewmodel/
+		games/
+			model/
+			service/
+			view/
+			viewmodel/
+	main.dart
+```
+
+## Pre-requisitos
+
+- Flutter SDK instalado.
+- Dart SDK (vem com Flutter).
+- Projeto Firebase configurado.
+- Chave da RAWG API.
+
+## Configuracao local
+
+1. Clone o repositorio.
+2. Crie o arquivo `.env` com base no `.env.example`.
+3. Adicione a chave da RAWG no `.env`.
+4. Adicione os arquivos de configuracao do Firebase para a plataforma.
+
+Exemplo de `.env`:
+
+```env
+RAWG_API_KEY=sua_chave_aqui
+```
+
+Arquivos Firebase necessarios:
+
+- Android: `android/app/google-services.json`
+- iOS/macOS (se usar): `GoogleService-Info.plist`
+
+## Como rodar
+
+### Windows (PowerShell)
+
+```powershell
+git clone <url-do-repositorio>
+cd nexplay
+Copy-Item .env.example .env
 flutter pub get
-
-# Execute o app
 flutter run
 ```
 
-## Login
+### Linux/macOS
 
-- O app usa login com **Firebase Authentication (Email/Senha)**.
-- Nao ha tela de registro no app: crie os usuarios diretamente no console do Firebase.
+```bash
+git clone <url-do-repositorio>
+cd nexplay
+cp .env.example .env
+flutter pub get
+flutter run
+```
 
-## Configuracao Firebase (local)
+## Fluxo de login
 
-- Este repositorio nao versiona arquivos sensiveis do Firebase.
-- Adicione localmente o arquivo `android/app/google-services.json` do seu projeto Firebase.
-- Se for usar iOS/macOS, adicione localmente `GoogleService-Info.plist` nas pastas da plataforma.
+- O app usa Firebase Authentication (email/senha).
+- Nao ha tela de cadastro no app.
+- Crie os usuarios no console do Firebase.
 
-## Plataforma
+## Troubleshooting rapido
+
+- Erro de `.env` nao encontrado: confirme se o arquivo `.env` existe na raiz.
+- Erro de Firebase no Android: confirme `android/app/google-services.json` valido.
+- Erro de dependencias: rode `flutter clean` e depois `flutter pub get`.
+
+## Plataforma alvo
 
 - Android
 
 ## Disciplina
 
-**DESENVOLVIMENTO DE SOFTWARE PARA DISPOSITIVOS MÓVEIS I**
-
----
-
-Desenvolvido com 💖 em Flutter.
+Desenvolvimento de Software para Dispositivos Moveis I
