@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:nexplay/features/games/model/favorite_game.dart';
 import 'package:nexplay/features/games/model/game_detail.dart';
+import 'package:nexplay/features/games/service/favorites_service.dart';
 import 'package:nexplay/features/games/viewmodel/game_detail_view_model.dart';
 
 class GameDetailPage extends StatefulWidget {
@@ -18,12 +20,42 @@ class GameDetailPage extends StatefulWidget {
 
 class _GameDetailPageState extends State<GameDetailPage> {
   late final GameDetailViewModel _viewModel;
+  final _favoritesService = FavoritesService();
+  bool _isFavorite = false;
 
   @override
   void initState() {
     super.initState();
     _viewModel = GameDetailViewModel();
     _viewModel.load(widget.gameId);
+    _checkFavorite();
+  }
+
+  Future<void> _checkFavorite() async {
+    final isFav = await _favoritesService.isFavorite(widget.gameId);
+    setState(() {
+      _isFavorite = isFav;
+    });
+  }
+
+  Future<void> _toggleFavorite() async {
+    final detail = _viewModel.gameDetail;
+    if (detail == null) return;
+
+    if (_isFavorite) {
+      await _favoritesService.removeFavorite(widget.gameId);
+    } else {
+      final favorite = FavoriteGame(
+        id: detail.id,
+        name: detail.name,
+        imageUrl: detail.imageUrl,
+        released: detail.released,
+        rating: detail.rating,
+        isCustom: false,
+      );
+      await _favoritesService.addFavorite(favorite);
+    }
+    await _checkFavorite();
   }
 
   @override
@@ -68,7 +100,11 @@ class _GameDetailPageState extends State<GameDetailPage> {
             return const Center(child: Text('Detalhes indisponiveis.'));
           }
 
-          return _DetailContent(detail: detail);
+          return _DetailContent(
+            detail: detail,
+            isFavorite: _isFavorite,
+            onToggleFavorite: _toggleFavorite,
+          );
         },
       ),
     );
@@ -76,9 +112,15 @@ class _GameDetailPageState extends State<GameDetailPage> {
 }
 
 class _DetailContent extends StatelessWidget {
-  const _DetailContent({required this.detail});
+  const _DetailContent({
+    required this.detail,
+    required this.isFavorite,
+    required this.onToggleFavorite,
+  });
 
   final GameDetail detail;
+  final bool isFavorite;
+  final VoidCallback onToggleFavorite;
 
   @override
   Widget build(BuildContext context) {
@@ -94,6 +136,14 @@ class _DetailContent extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
+          actions: [
+            IconButton(
+              icon: Icon(
+                isFavorite ? Icons.star : Icons.star_border,
+              ),
+              onPressed: onToggleFavorite,
+            ),
+          ],
           flexibleSpace: FlexibleSpaceBar(
             background: Stack(
               fit: StackFit.expand,

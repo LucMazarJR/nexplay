@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nexplay/features/auth/service/auth_service.dart';
 import 'package:nexplay/features/games/model/game_platform_filter.dart';
 import 'package:nexplay/features/games/model/game_summary.dart';
+import 'package:nexplay/features/games/view/favorites_page.dart';
 import 'package:nexplay/features/games/view/game_detail_page.dart';
 import 'package:nexplay/features/games/viewmodel/games_list_view_model.dart';
 
@@ -76,6 +77,49 @@ class _GamesPageState extends State<GamesPage> {
             icon: const Icon(Icons.logout),
           ),
         ],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: colors.primary,
+              ),
+              child: const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Icon(Icons.sports_esports, size: 48),
+                  SizedBox(height: 8),
+                  Text(
+                    'Nexplay',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.explore),
+              title: const Text('Explorar'),
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.star),
+              title: const Text('Favoritos'),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => const FavoritesPage(),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ),
       body: AnimatedBuilder(
         animation: _viewModel,
