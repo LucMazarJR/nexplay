@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
     MaterialTheme theme = MaterialTheme(textTheme);
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Nexplay',
       theme: theme.light(),
       home: GameList(),
