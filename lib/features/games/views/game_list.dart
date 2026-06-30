@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nexplay/features/games/views/add_game.dart';
 
 class GameList extends StatefulWidget {
   const GameList({super.key});
@@ -47,7 +48,11 @@ class _GameListState extends State<GameList> {
               ),
               SizedBox(height: 5),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const AddGame()),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: themeColors.primary,
                   foregroundColor: themeColors.onPrimary,
