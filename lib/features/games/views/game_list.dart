@@ -18,6 +18,7 @@ class _GameListState extends State<GameList> {
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
         child: Center(
           child: Column(
+            spacing: 10,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
@@ -34,19 +35,17 @@ class _GameListState extends State<GameList> {
                   ),
                 ),
               ),
-              SizedBox(height: 10),
               Text(
                 'Sua biblioteca está vazia',
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 10),
               Text(
                 'Adicione o primeiro jogo da sua coleção para começar.',
                 style: TextStyle(fontSize: 16),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 15),
+              SizedBox(height: 5),
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
