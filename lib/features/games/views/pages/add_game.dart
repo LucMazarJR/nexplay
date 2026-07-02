@@ -79,7 +79,6 @@ class _AddGameState extends State<AddGame> {
                 },
               ),
               Column(
-                // Add label if necessary
                 children: [
                   DropdownButtonFormField(
                     hint: Text('Selecione'),
