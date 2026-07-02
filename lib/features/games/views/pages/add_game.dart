@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nexplay/features/games/models/class/add_game_form.dart';
+import 'package:nexplay/features/games/views/widgets/upload_photo.dart';
 
 class AddGame extends StatefulWidget {
   const AddGame({super.key});
@@ -63,7 +64,7 @@ class _AddGameState extends State<AddGame> {
           child: Column(
             spacing: 15,
             children: [
-
+              UploadPhoto(),
               TextFormField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
