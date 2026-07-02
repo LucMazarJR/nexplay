@@ -63,6 +63,7 @@ class _AddGameState extends State<AddGame> {
           child: Column(
             spacing: 15,
             children: [
+
               TextFormField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -77,6 +78,7 @@ class _AddGameState extends State<AddGame> {
                 },
               ),
               Column(
+                // Add label if necessary
                 children: [
                   DropdownButtonFormField(
                     hint: Text('Selecione'),

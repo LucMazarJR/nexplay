@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nexplay/features/games/views/game_list.dart';
+import 'package:nexplay/features/games/views/pages/game_list.dart';
 import 'core/util.dart';
 import 'core/theme.dart';
 

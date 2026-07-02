@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nexplay/features/games/views/add_game.dart';
+import 'package:nexplay/features/games/views/pages/add_game.dart';
 
 class GameList extends StatefulWidget {
   const GameList({super.key});
