@@ -83,7 +83,10 @@ class _AddGameState extends State<AddGame> {
                 children: [
                   DropdownButtonFormField(
                     hint: Text('Selecione'),
-                    decoration: InputDecoration(border: OutlineInputBorder()),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      label: Text('Categorias'),
+                    ),
                     items: [
                       DropdownMenuItem(value: 1, child: Text('PC')),
                       DropdownMenuItem(value: 2, child: Text('Playstation')),
@@ -113,6 +116,13 @@ class _AddGameState extends State<AddGame> {
                       builder: (field) {
                         return InputDecorator(
                           decoration: InputDecoration(
+                            label: Text(
+                              "Status do jogo",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
                             border: InputBorder.none,
                             enabledBorder: InputBorder.none,
                             focusedBorder: InputBorder.none,
@@ -123,37 +133,40 @@ class _AddGameState extends State<AddGame> {
                             isDense: true,
                             errorText: field.errorText,
                           ),
-                          child: SegmentedButton<GameStatus>(
-                            style: SegmentedButton.styleFrom(
-                              textStyle: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 6),
+                            child: SegmentedButton<GameStatus>(
+                              style: SegmentedButton.styleFrom(
+                                textStyle: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
+                              segments: const [
+                                ButtonSegment(
+                                  value: GameStatus.novo,
+                                  label: Text('Novo'),
+                                ),
+                                ButtonSegment(
+                                  value: GameStatus.continuar,
+                                  label: Text('Continuar'),
+                                ),
+                                ButtonSegment(
+                                  value: GameStatus.finalizado,
+                                  label: Text('Finalizado'),
+                                ),
+                              ],
+                              selected: {gameStatusView},
+                              onSelectionChanged: (newSelection) {
+                                final newValue = newSelection.first;
+                            
+                                setState(() {
+                                  gameStatusView = newValue;
+                                });
+                            
+                                field.didChange(newValue);
+                              },
                             ),
-                            segments: const [
-                              ButtonSegment(
-                                value: GameStatus.novo,
-                                label: Text('Novo'),
-                              ),
-                              ButtonSegment(
-                                value: GameStatus.continuar,
-                                label: Text('Continuar'),
-                              ),
-                              ButtonSegment(
-                                value: GameStatus.finalizado,
-                                label: Text('Finalizado'),
-                              ),
-                            ],
-                            selected: {gameStatusView},
-                            onSelectionChanged: (newSelection) {
-                              final newValue = newSelection.first;
-
-                              setState(() {
-                                gameStatusView = newValue;
-                              });
-
-                              field.didChange(newValue);
-                            },
                           ),
                         );
                       },
