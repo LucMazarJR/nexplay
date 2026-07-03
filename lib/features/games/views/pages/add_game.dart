@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:nexplay/features/games/models/class/add_game_form.dart';
 import 'package:nexplay/features/games/views/widgets/upload_photo.dart';
 
@@ -120,7 +121,7 @@ class _AddGameState extends State<AddGame> {
                                 "Status do jogo",
                                 style: TextStyle(
                                   fontSize: 20,
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                               border: InputBorder.none,
@@ -159,11 +160,11 @@ class _AddGameState extends State<AddGame> {
                                 selected: {gameStatusView},
                                 onSelectionChanged: (newSelection) {
                                   final newValue = newSelection.first;
-                              
+
                                   setState(() {
                                     gameStatusView = newValue;
                                   });
-                              
+
                                   field.didChange(newValue);
                                 },
                               ),
@@ -182,7 +183,56 @@ class _AddGameState extends State<AddGame> {
                       border: OutlineInputBorder(),
                     ),
                     minLines: 1,
-                    maxLines: 5
+                    maxLines: 5,
+                  )
+                else if (gameStatusView == .finalizado)
+                  FormField(
+                    builder: (field) {
+                      return InputDecorator(
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          errorBorder: InputBorder.none,
+                          focusedErrorBorder: InputBorder.none,
+                          disabledBorder: InputBorder.none,
+                          contentPadding: EdgeInsets.zero,
+                          isDense: true,
+                          errorText: field.errorText,
+                          label: Text(
+                            "Nota para o jogo",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 6),
+                          child: RatingBar(
+                            updateOnDrag: true,
+                            initialRating: 0,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            ratingWidget: RatingWidget(
+                              full: Icon(Icons.star, color: Colors.amber),
+                              half: Icon(
+                                Icons.star_half_outlined,
+                                color: Colors.amber,
+                              ),
+                              empty: Icon(
+                                Icons.star_outline,
+                                color: Colors.amber,
+                              ),
+                            ),
+                            onRatingUpdate: (rating) {
+                              // Tratamento futuro do formulário
+                            },
+                            glow: false,
+                          ),
+                        ),
+                      );
+                    },
                   ),
               ],
             ),
