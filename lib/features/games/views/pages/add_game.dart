@@ -174,6 +174,16 @@ class _AddGameState extends State<AddGame> {
                     ),
                   ],
                 ),
+                if (gameStatusView == .continuar)
+                  TextFormField(
+                    decoration: InputDecoration(
+                      label: Text("O que falta?"),
+                      hint: Text("Digite aqui o falta ser feito no jogo"),
+                      border: OutlineInputBorder(),
+                    ),
+                    minLines: 1,
+                    maxLines: 5
+                  ),
               ],
             ),
           ),
