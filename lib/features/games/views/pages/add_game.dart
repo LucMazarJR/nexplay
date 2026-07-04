@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:nexplay/features/games/models/class/game_genres.dart';
 import 'package:nexplay/features/games/models/enum/add_game_form.dart';
 import 'package:nexplay/features/games/models/class/game_tags.dart';
 import 'package:nexplay/features/games/views/widgets/tags_dialog.dart';
@@ -18,6 +19,7 @@ class _AddGameState extends State<AddGame> {
   int selected = 0;
   List<GameTag> allTags = mockGameTags; // Buscar tags no banco
   Set<GameTag>? selectedTags;
+  List<GameGenres> genreOption = mockGeneros; // Buscar generos no banco
   GameStatus gameStatusView = GameStatus.novo;
 
   @override
@@ -93,11 +95,14 @@ class _AddGameState extends State<AddGame> {
                         border: OutlineInputBorder(),
                         label: Text('Categorias'),
                       ),
-                      items: [
-                        DropdownMenuItem(value: 1, child: Text('PC')),
-                        DropdownMenuItem(value: 2, child: Text('Playstation')),
-                      ],
+                      items: mockGeneros.map((genre) {
+                        return DropdownMenuItem(
+                          value: genre.id,
+                          child: Text(genre.nome),
+                        );
+                      }).toList(),
                       initialValue: _value,
+                      borderRadius: .circular(15),
                       onChanged: (value) {
                         if (value is int) {
                           setState(() {
