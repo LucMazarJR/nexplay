@@ -4,8 +4,9 @@ import 'package:nexplay/features/games/models/class/game_tags.dart';
 
 class TagsDialog extends StatefulWidget {
   final List<GameTag> tags;
+  final Set<GameTag>? userTags;
 
-  const TagsDialog({super.key, required this.tags});
+  const TagsDialog({super.key, required this.tags, this.userTags});
 
   @override
   State<TagsDialog> createState() => _TagsDialogState();
@@ -13,6 +14,12 @@ class TagsDialog extends StatefulWidget {
 
 class _TagsDialogState extends State<TagsDialog> {
   Set<GameTag> selectedTags = {};
+
+  @override
+  void initState() {
+    super.initState();
+    selectedTags = widget.userTags ?? {};
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +88,7 @@ class _TagsDialogState extends State<TagsDialog> {
       actions: [
         TextButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).pop(selectedTags);
           },
           child: Text('Finalizar'),
         ),

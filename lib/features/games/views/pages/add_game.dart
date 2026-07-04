@@ -68,6 +68,7 @@ class _AddGameState extends State<AddGame> {
           child: Form(
             key: _formKey,
             child: Column(
+              crossAxisAlignment: .start,
               spacing: 15,
               children: [
                 UploadPhoto(),
@@ -238,20 +239,54 @@ class _AddGameState extends State<AddGame> {
                       );
                     },
                   ),
-                ElevatedButton(
-                  onPressed: () async {
-                    Set<GameTag>? retrievedTags =
-                        await showDialog<Set<GameTag>>(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return TagsDialog(tags: allTags);
-                          },
-                        );
-                    setState(() {
-                      selectedTags = retrievedTags;
-                    });
+                FormField(
+                  builder: (field) {
+                    return InputDecorator(
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        errorBorder: InputBorder.none,
+                        focusedErrorBorder: InputBorder.none,
+                        disabledBorder: InputBorder.none,
+                        contentPadding: EdgeInsets.zero,
+                        isDense: true,
+                        errorText: field.errorText,
+                        label: Text(
+                          "Tags",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: themeColors.primaryContainer,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: .circular(12),
+                          ),
+                          foregroundColor: themeColors.onPrimaryContainer,
+                        ),
+                        onPressed: () async {
+                          Set<GameTag>? retrievedTags =
+                              await showDialog<Set<GameTag>>(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return TagsDialog(
+                                    tags: allTags,
+                                    userTags: selectedTags,
+                                  );
+                                },
+                              );
+                          setState(() {
+                            selectedTags = retrievedTags;
+                          });
+                        },
+                        child: Text("Mostrar tags"),
+                      ),
+                    );
                   },
-                  child: Text("Mostrar tags"),
                 ),
               ],
             ),
