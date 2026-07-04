@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:nexplay/features/games/models/class/add_game_form.dart';
+import 'package:nexplay/features/games/models/enum/add_game_form.dart';
+import 'package:nexplay/features/games/models/class/game_tags.dart';
+import 'package:nexplay/features/games/views/widgets/tags_dialog.dart';
 import 'package:nexplay/features/games/views/widgets/upload_photo.dart';
 
 class AddGame extends StatefulWidget {
@@ -14,6 +16,8 @@ class _AddGameState extends State<AddGame> {
   final _formKey = GlobalKey<FormState>();
   int? _value;
   int selected = 0;
+  List<GameTag> allTags = mockGameTags; // Buscar tags no banco
+  Set<GameTag>? selectedTags;
   GameStatus gameStatusView = GameStatus.novo;
 
   @override
@@ -234,6 +238,21 @@ class _AddGameState extends State<AddGame> {
                       );
                     },
                   ),
+                ElevatedButton(
+                  onPressed: () async {
+                    Set<GameTag>? retrievedTags =
+                        await showDialog<Set<GameTag>>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return TagsDialog(tags: allTags);
+                          },
+                        );
+                    setState(() {
+                      selectedTags = retrievedTags;
+                    });
+                  },
+                  child: Text("Mostrar tags"),
+                ),
               ],
             ),
           ),
