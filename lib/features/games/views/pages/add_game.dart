@@ -71,7 +71,7 @@ class _AddGameState extends State<AddGame> {
             key: _formKey,
             child: Column(
               crossAxisAlignment: .start,
-              spacing: 15,
+              spacing: 20,
               children: [
                 UploadPhoto(),
                 TextFormField(
