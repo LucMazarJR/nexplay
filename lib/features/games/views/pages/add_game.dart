@@ -19,7 +19,7 @@ class _AddGameState extends State<AddGame> {
   int selected = 0;
   List<GameTag> allTags = mockGameTags; // Buscar tags no banco
   Set<GameTag>? selectedTags;
-  List<GameGenres> genreOption = mockGeneros; // Buscar generos no banco
+  List<GameGenre> genreOption = mockGeneros; // Buscar generos no banco
   GameStatus gameStatusView = GameStatus.novo;
 
   @override
