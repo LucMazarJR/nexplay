@@ -24,7 +24,7 @@ class _TagsDialogState extends State<TagsDialog> {
   @override
   Widget build(BuildContext context) {
     final themeColors = Theme.of(context).colorScheme;
-    final allTags = groupBy(widget.tags, (tag) => tag.tipo);
+    final allTags = groupBy(widget.tags, (tag) => tag.type);
 
     return AlertDialog(
       backgroundColor: themeColors.surfaceContainer,
@@ -61,7 +61,7 @@ class _TagsDialogState extends State<TagsDialog> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadiusGeometry.circular(18),
                           ),
-                          label: Text(tag.nome),
+                          label: Text(tag.name),
                           selected: selectedTags.contains(tag),
                           onSelected: (bool isSelected) {
                             setState(() {

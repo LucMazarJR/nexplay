@@ -98,7 +98,7 @@ class _AddGameState extends State<AddGame> {
                       items: mockGeneros.map((genre) {
                         return DropdownMenuItem(
                           value: genre.id,
-                          child: Text(genre.nome),
+                          child: Text(genre.name),
                         );
                       }).toList(),
                       initialValue: _value,
