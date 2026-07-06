@@ -2,5 +2,6 @@ enum GameStatus {
   novo,
   continuar,
   jogando,
-  finalizado
+  finalizado,
+  abandonado
 }
