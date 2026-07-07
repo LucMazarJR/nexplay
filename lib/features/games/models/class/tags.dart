@@ -6,9 +6,8 @@ class Tag {
   const Tag({this.id ,required this.name, required this.type});
 }
 
-// Mock por enquanto, depois isso vira uma tabela no banco (tags + type).
 final List<Tag> tagsSeed = [
-  // Estilo (modificadores de gênero, um jogo pode ter várias)
+  // Estilo
   Tag(name: 'Souls-like', type: 'Estilo'),
   Tag(name: 'Metroidvania', type: 'Estilo'),
   Tag(name: 'Roguelike', type: 'Estilo'),
