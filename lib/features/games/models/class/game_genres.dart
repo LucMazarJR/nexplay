@@ -10,7 +10,7 @@ class GameGenre {
   });
 }
 
-final List<GameGenre> mockGeneros = [
+final List<GameGenre> genresSeeds = [
   GameGenre(id: 1, name: 'RPG'),
   GameGenre(id: 2, name: 'RPG de Ação'),
   GameGenre(id: 3, name: 'RPG Tático'),

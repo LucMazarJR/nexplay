@@ -6,7 +6,7 @@ class GameTag {
 }
 
 // Mock por enquanto, depois isso vira uma tabela no banco (tags + type).
-final List<GameTag> mockGameTags = [
+final List<GameTag> gameTagsSeed = [
   // Estilo (modificadores de gênero, um jogo pode ter várias)
   GameTag(name: 'Souls-like', type: 'Estilo'),
   GameTag(name: 'Metroidvania', type: 'Estilo'),
