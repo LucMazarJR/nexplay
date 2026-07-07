@@ -1,3 +1,5 @@
+import 'package:nexplay/features/games/models/class/game_genres.dart';
+import 'package:nexplay/features/games/models/class/game_tags.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -38,6 +40,8 @@ class AppDatabase {
   }
 
   Future<void> _onCreate(Database db, int version) async {
+    // DDL
+
     await db.execute('''
       CREATE TABLE tb_tags (
         id_tag INTEGER PRIMARY KEY,
@@ -74,10 +78,23 @@ class AppDatabase {
         FOREIGN KEY (id_tag) REFERENCES tb_tags(id_tag) ON DELETE CASCADE
       )
     ''');
+
+    // DML
+    Batch batch = db.batch();
+
+    for (var genre in genresSeed) {
+      batch.insert('tb_genres', {'name': genre.name});
+    }
+
+    for (var tag in tagsSeed) {
+      batch.insert('tb_tags', {'name': tag.name, 'type': tag.type});
+    }
+
+    await batch.commit(noResult: true);
   }
 
-  Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async{
-    // Lógica para atualicação do banco
+  Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    // Lógica para atualização do banco
     // Tipo if (oldVersion < 2) { alterações 1 -> 2 }
   }
 }
