@@ -17,9 +17,9 @@ class _AddGameState extends State<AddGame> {
   final _formKey = GlobalKey<FormState>();
   int? _value;
   int selected = 0;
-  List<GameTag> allTags = mockGameTags; // Buscar tags no banco
-  Set<GameTag>? selectedTags;
-  List<GameGenre> genreOption = mockGeneros; // Buscar generos no banco
+  List<Tag> allTags = mockGameTags; // Buscar tags no banco
+  Set<Tag>? selectedTags;
+  List<Genre> genreOption = mockGeneros; // Buscar generos no banco
   GameStatus gameStatusView = GameStatus.novo;
 
   @override
@@ -274,8 +274,8 @@ class _AddGameState extends State<AddGame> {
                           foregroundColor: themeColors.onPrimaryContainer,
                         ),
                         onPressed: () async {
-                          Set<GameTag>? retrievedTags =
-                              await showDialog<Set<GameTag>>(
+                          Set<Tag>? retrievedTags =
+                              await showDialog<Set<Tag>>(
                                 context: context,
                                 builder: (BuildContext context) {
                                   return TagsDialog(

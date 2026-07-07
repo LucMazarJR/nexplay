@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:nexplay/features/games/models/class/tags.dart';
 
 class TagsDialog extends StatefulWidget {
-  final List<GameTag> tags;
-  final Set<GameTag>? userTags;
+  final List<Tag> tags;
+  final Set<Tag>? userTags;
 
   const TagsDialog({super.key, required this.tags, this.userTags});
 
@@ -13,7 +13,7 @@ class TagsDialog extends StatefulWidget {
 }
 
 class _TagsDialogState extends State<TagsDialog> {
-  Set<GameTag> selectedTags = {};
+  Set<Tag> selectedTags = {};
 
   @override
   void initState() {
@@ -56,7 +56,7 @@ class _TagsDialogState extends State<TagsDialog> {
                   Expanded(
                     child: Wrap(
                       spacing: 5,
-                      children: entry.value.map((GameTag tag) {
+                      children: entry.value.map((Tag tag) {
                         return FilterChip(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadiusGeometry.circular(18),
