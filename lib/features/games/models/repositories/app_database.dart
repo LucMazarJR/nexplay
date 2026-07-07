@@ -11,7 +11,7 @@ class AppDatabase {
 
   factory AppDatabase() => _instance;
 
-  Future<Database> open() async {
+  Future<Database> _open() async {
     const dbName = 'nexplay.db';
     var databasesPath = await getDatabasesPath();
     var path = join(databasesPath, dbName);
@@ -30,7 +30,7 @@ class AppDatabase {
 
   Future<Database> getDatabase() async {
     if (db == null || !db!.isOpen) {
-      await open();
+      await _open();
     }
     return db!;
   }
