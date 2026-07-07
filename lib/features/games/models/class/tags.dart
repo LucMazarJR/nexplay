@@ -1,8 +1,9 @@
 class Tag {
+  final int? id;
   final String name;
   final String type;
 
-  const Tag({required this.name, required this.type});
+  const Tag({this.id ,required this.name, required this.type});
 }
 
 // Mock por enquanto, depois isso vira uma tabela no banco (tags + type).

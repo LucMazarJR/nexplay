@@ -3,17 +3,19 @@ import 'package:nexplay/features/games/models/class/tags.dart';
 import 'package:nexplay/features/games/models/enum/add_game_form.dart';
 
 class Game {
+  final int? id;
   final String name;
-  final String? imagePath;
   final GameStatus status;
-  final Set<Tag>? tags;
   final Genre genre;
+  final Set<Tag>? tags;
+  final String? imagePath;
 
   const Game({
+    this.id,
     required this.name,
-    this.imagePath,
     required this.status,
-    this.tags,
     required this.genre,
+    this.tags,
+    this.imagePath,
   });
 }

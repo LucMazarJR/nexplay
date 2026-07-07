@@ -1,11 +1,10 @@
 // Campo único de seleção no cadastro do jogo. Depois vira tabela Genres no SQLite.
 
 class Genre {
+  final int? id;
   final String name;
 
-  const Genre({
-    required this.name,
-  });
+  const Genre({this.id, required this.name});
 }
 
 final List<Genre> genresSeed = [
