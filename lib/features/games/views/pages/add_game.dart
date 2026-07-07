@@ -97,27 +97,45 @@ class _AddGameState extends State<AddGame> {
                     FutureBuilder<List<Genre>>(
                       future: genresViewModel.genres,
                       builder: (context, snapshot) {
-                        return DropdownButtonFormField(
-                          hint: Text('Selecione'),
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            label: Text('Categorias'),
-                          ),
-                          items: snapshot.data?.map((genre) {
-                            return DropdownMenuItem(
-                              value: genre.id,
-                              child: Text(genre.name),
-                            );
-                          }).toList(),
-                          initialValue: _value,
-                          borderRadius: .circular(15),
-                          onChanged: (value) {
-                            if (value is int) {
-                              setState(() {
-                                _value = value;
-                              });
-                            }
-                          },
+                        ConnectionState state = snapshot.connectionState;
+
+                        return Column(
+                          children: [
+                            DropdownButtonFormField(
+                              hint: Text('Selecione'),
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                label: state == .waiting
+                                    ? Text('Carregando...')
+                                    : Text('Categorias'),
+                              ),
+                              items: snapshot.data?.map((genre) {
+                                return DropdownMenuItem(
+                                  value: genre.id,
+                                  child: Text(genre.name),
+                                );
+                              }).toList(),
+                              initialValue: _value,
+                              borderRadius: .circular(15),
+                              onChanged: (value) {
+                                if (value is int) {
+                                  setState(() {
+                                    _value = value;
+                                  });
+                                }
+                              },
+                            ),
+                            if (state == .done && snapshot.hasError)
+                              Row(
+                                children: [
+                                  Text(
+                                    "Não foi possível carregar os gêneros",
+                                    style: TextStyle(color: themeColors.error),
+                                    textAlign: .start,
+                                  ),
+                                ],
+                              ),
+                          ],
                         );
                       },
                     ),
