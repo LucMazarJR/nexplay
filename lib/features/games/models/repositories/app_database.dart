@@ -1,5 +1,5 @@
-import 'package:nexplay/features/games/models/class/game_genres.dart';
-import 'package:nexplay/features/games/models/class/game_tags.dart';
+import 'package:nexplay/features/games/models/class/genres.dart';
+import 'package:nexplay/features/games/models/class/tags.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 

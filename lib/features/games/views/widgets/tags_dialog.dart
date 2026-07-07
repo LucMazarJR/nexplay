@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:nexplay/features/games/models/class/game_tags.dart';
+import 'package:nexplay/features/games/models/class/tags.dart';
 
 class TagsDialog extends StatefulWidget {
   final List<GameTag> tags;
