@@ -10,7 +10,7 @@ class GameGenre {
   });
 }
 
-final List<GameGenre> genresSeeds = [
+final List<GameGenre> genresSeed = [
   GameGenre(id: 1, name: 'RPG'),
   GameGenre(id: 2, name: 'RPG de Ação'),
   GameGenre(id: 3, name: 'RPG Tático'),
