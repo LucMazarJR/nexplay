@@ -3,6 +3,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:nexplay/features/games/models/class/genres.dart';
 import 'package:nexplay/features/games/models/enum/add_game_form.dart';
 import 'package:nexplay/features/games/models/class/tags.dart';
+import 'package:nexplay/features/games/models/repositories/genres_database.dart';
+import 'package:nexplay/features/games/viewmodels/genres_view_model.dart';
 import 'package:nexplay/features/games/views/widgets/tags_dialog.dart';
 import 'package:nexplay/features/games/views/widgets/upload_photo.dart';
 
@@ -14,12 +16,15 @@ class AddGame extends StatefulWidget {
 }
 
 class _AddGameState extends State<AddGame> {
+  final GenresViewModel genresViewModel = GenresViewModel(
+    genresDatabase: GenresDatabase(),
+  );
   final _formKey = GlobalKey<FormState>();
+
   int? _value;
   int selected = 0;
-  List<Tag> allTags = mockGameTags; // Buscar tags no banco
+  List<Tag> allTags = tagsSeed; // Buscar tags no banco
   Set<Tag>? selectedTags;
-  List<Genre> genreOption = mockGeneros; // Buscar generos no banco
   GameStatus gameStatusView = GameStatus.novo;
 
   @override
@@ -89,26 +94,31 @@ class _AddGameState extends State<AddGame> {
                 ),
                 Column(
                   children: [
-                    DropdownButtonFormField(
-                      hint: Text('Selecione'),
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        label: Text('Categorias'),
-                      ),
-                      items: mockGeneros.map((genre) {
-                        return DropdownMenuItem(
-                          value: genre.id,
-                          child: Text(genre.name),
+                    FutureBuilder<List<Genre>>(
+                      future: genresViewModel.genres,
+                      builder: (context, snapshot) {
+                        return DropdownButtonFormField(
+                          hint: Text('Selecione'),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            label: Text('Categorias'),
+                          ),
+                          items: snapshot.data?.map((genre) {
+                            return DropdownMenuItem(
+                              value: genre.id,
+                              child: Text(genre.name),
+                            );
+                          }).toList(),
+                          initialValue: _value,
+                          borderRadius: .circular(15),
+                          onChanged: (value) {
+                            if (value is int) {
+                              setState(() {
+                                _value = value;
+                              });
+                            }
+                          },
                         );
-                      }).toList(),
-                      initialValue: _value,
-                      borderRadius: .circular(15),
-                      onChanged: (value) {
-                        if (value is int) {
-                          setState(() {
-                            _value = value;
-                          });
-                        }
                       },
                     ),
                   ],
@@ -274,16 +284,15 @@ class _AddGameState extends State<AddGame> {
                           foregroundColor: themeColors.onPrimaryContainer,
                         ),
                         onPressed: () async {
-                          Set<Tag>? retrievedTags =
-                              await showDialog<Set<Tag>>(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return TagsDialog(
-                                    tags: allTags,
-                                    userTags: selectedTags,
-                                  );
-                                },
+                          Set<Tag>? retrievedTags = await showDialog<Set<Tag>>(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return TagsDialog(
+                                tags: allTags,
+                                userTags: selectedTags,
                               );
+                            },
+                          );
                           setState(() {
                             selectedTags = retrievedTags;
                           });
