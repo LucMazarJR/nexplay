@@ -1,9 +1,8 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:nexplay/features/games/models/class/tags.dart';
 
 class TagsDialog extends StatefulWidget {
-  final List<Tag> tags;
+  final Map<String, List<Tag>> tags;
   final Set<Tag>? userTags;
 
   const TagsDialog({super.key, required this.tags, this.userTags});
@@ -24,7 +23,7 @@ class _TagsDialogState extends State<TagsDialog> {
   @override
   Widget build(BuildContext context) {
     final themeColors = Theme.of(context).colorScheme;
-    final allTags = groupBy(widget.tags, (tag) => tag.type);
+    final allTags = widget.tags;
 
     return AlertDialog(
       backgroundColor: themeColors.surfaceContainer,

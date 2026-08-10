@@ -4,7 +4,9 @@ import 'package:nexplay/features/games/models/class/genres.dart';
 import 'package:nexplay/features/games/models/enum/add_game_form.dart';
 import 'package:nexplay/features/games/models/class/tags.dart';
 import 'package:nexplay/features/games/models/repositories/genres_database.dart';
+import 'package:nexplay/features/games/models/repositories/tags_database.dart';
 import 'package:nexplay/features/games/viewmodels/genres_view_model.dart';
+import 'package:nexplay/features/games/viewmodels/tags_view_model.dart';
 import 'package:nexplay/features/games/views/widgets/tags_dialog.dart';
 import 'package:nexplay/features/games/views/widgets/upload_photo.dart';
 
@@ -19,11 +21,13 @@ class _AddGameState extends State<AddGame> {
   final GenresViewModel genresViewModel = GenresViewModel(
     genresDatabase: GenresDatabase(),
   );
+  final TagsViewModel tagsViewModel = TagsViewModel(
+    tagsDatabase: TagsDatabase(),
+  );
   final _formKey = GlobalKey<FormState>();
 
   int? _value;
   int selected = 0;
-  List<Tag> allTags = tagsSeed; // Buscar tags no banco
   Set<Tag>? selectedTags;
   GameStatus gameStatusView = GameStatus.novo;
 
@@ -305,9 +309,52 @@ class _AddGameState extends State<AddGame> {
                           Set<Tag>? retrievedTags = await showDialog<Set<Tag>>(
                             context: context,
                             builder: (BuildContext context) {
-                              return TagsDialog(
-                                tags: allTags,
-                                userTags: selectedTags,
+                              return FutureBuilder(
+                                future: tagsViewModel.tags,
+                                builder: (context, asyncSnapshot) {
+                                  ConnectionState state =
+                                      asyncSnapshot.connectionState;
+
+                                  if (state == .done) {
+                                    if (asyncSnapshot.hasData) {
+                                      return TagsDialog(
+                                        tags: asyncSnapshot.data!,
+                                        userTags: selectedTags,
+                                      );
+                                    }
+                                  } else if (state == .waiting) {
+                                    return Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  }
+                                  return Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(20),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: themeColors
+                                              .surfaceContainerLowest,
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(16),
+                                          child: Text(
+                                            "Erro Inesperado ao carregar as tags... Tente novamente mais tarde.",
+                                            textAlign: .justify,
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: .w400,
+                                              color: themeColors.error,
+                                              decoration: .none,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
                               );
                             },
                           );
