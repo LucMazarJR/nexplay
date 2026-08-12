@@ -5,6 +5,7 @@ import 'package:nexplay/features/games/models/enum/add_game_form.dart';
 import 'package:nexplay/features/games/models/class/tags.dart';
 import 'package:nexplay/features/games/models/repositories/genres_database.dart';
 import 'package:nexplay/features/games/models/repositories/tags_database.dart';
+import 'package:nexplay/features/games/viewmodels/add_game_view_model.dart';
 import 'package:nexplay/features/games/viewmodels/genres_view_model.dart';
 import 'package:nexplay/features/games/viewmodels/tags_view_model.dart';
 import 'package:nexplay/features/games/views/widgets/tags_dialog.dart';
@@ -24,6 +25,7 @@ class _AddGameState extends State<AddGame> {
   final TagsViewModel tagsViewModel = TagsViewModel(
     tagsDatabase: TagsDatabase(),
   );
+  final AddGameViewModel addGameViewModel = AddGameViewModel();
   final _formKey = GlobalKey<FormState>();
 
   int? _value;
@@ -89,6 +91,7 @@ class _AddGameState extends State<AddGame> {
                     hint: Text("Digite aqui o nome do jogo"),
                     labelText: "Nome",
                   ),
+                  onChanged: (value) => addGameViewModel.gameForm.name = value,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor, insira algum texto';
