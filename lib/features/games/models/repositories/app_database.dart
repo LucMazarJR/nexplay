@@ -21,7 +21,8 @@ class AppDatabase {
       onCreate: _onCreate,
       onConfigure: _onConfigure,
       onUpgrade: _onUpgrade,
-      version: 1,
+      onDowngrade: onDatabaseDowngradeDelete,
+      version: 2,
     );
 
     db = openedDb;
@@ -63,6 +64,8 @@ class AppDatabase {
         id_game INTEGER PRIMARY KEY,
         name TEXT NOT NULL,
         status TEXT NOT NULL CHECK (status IN ('novo', 'continuar', 'jogando', 'finalizado', 'abandonado')),
+        rating REAL,
+        toDoDescription TEXT,
         imagePath TEXT,
         id_genre INTEGER,
         FOREIGN KEY (id_genre) REFERENCES tb_genres(id_genre) ON DELETE SET NULL
@@ -94,7 +97,11 @@ class AppDatabase {
   }
 
   Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
-    // Lógica para atualização do banco
-    // Tipo if (oldVersion < 2) { alterações 1 -> 2 }
+    if (oldVersion < 2) {
+      await db.execute('''ALTER TABLE tb_games ADD COLUMN rating REAL''');
+      await db.execute(
+        '''ALTER TABLE tb_games ADD COLUMN toDoDescription TEXT''',
+      );
+    }
   }
 }

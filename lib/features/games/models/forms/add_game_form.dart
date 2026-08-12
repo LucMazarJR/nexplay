@@ -7,6 +7,8 @@ class GameForm {
   GameStatus? status;
   Genre? genre;
   Set<Tag>? tags;
+  String? toDoDescription;
+  double? rating;
   String? imagePath;
 
   GameForm();

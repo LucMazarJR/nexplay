@@ -6,6 +6,8 @@ class Game {
   final int? id;
   final String name;
   final GameStatus status;
+  final double? rating;
+  final String? toDoDescription;
   final Genre genre;
   final Set<Tag>? tags;
   final String? imagePath;
@@ -15,6 +17,8 @@ class Game {
     required this.name,
     required this.status,
     required this.genre,
+    this.toDoDescription,
+    this.rating,
     this.tags,
     this.imagePath,
   });
