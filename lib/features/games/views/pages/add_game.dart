@@ -28,7 +28,6 @@ class _AddGameState extends State<AddGame> {
   final AddGameViewModel addGameViewModel = AddGameViewModel();
   final _formKey = GlobalKey<FormState>();
 
-  int? _value;
   int selected = 0;
   Set<Tag>? selectedTags;
   GameStatus gameStatusView = GameStatus.novo;
@@ -107,7 +106,6 @@ class _AddGameState extends State<AddGame> {
                       future: genresViewModel.genres,
                       builder: (context, snapshot) {
                         ConnectionState state = snapshot.connectionState;
-
                         return Column(
                           children: [
                             DropdownButtonFormField(
@@ -124,12 +122,21 @@ class _AddGameState extends State<AddGame> {
                                   child: Text(genre.name),
                                 );
                               }).toList(),
-                              initialValue: _value,
                               borderRadius: .circular(15),
+                              validator: (value) {
+                                if (value == null) {
+                                  return "Selecione a categoria do jogo";
+                                }
+                                return null;
+                              },
                               onChanged: (value) {
                                 if (value is int) {
                                   setState(() {
-                                    _value = value;
+                                    addGameViewModel.gameForm.genre = snapshot
+                                        .data
+                                        ?.firstWhere(
+                                          (genre) => genre.id == value,
+                                        );
                                   });
                                 }
                               },
