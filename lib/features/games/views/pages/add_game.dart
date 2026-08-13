@@ -28,9 +28,6 @@ class _AddGameState extends State<AddGame> {
   final AddGameViewModel addGameViewModel = AddGameViewModel();
   final _formKey = GlobalKey<FormState>();
 
-  int selected = 0;
-  Set<Tag>? selectedTags;
-
   @override
   Widget build(BuildContext context) {
     final themeColors = Theme.of(context).colorScheme;
@@ -337,7 +334,7 @@ class _AddGameState extends State<AddGame> {
                                     if (asyncSnapshot.hasData) {
                                       return TagsDialog(
                                         tags: asyncSnapshot.data!,
-                                        userTags: selectedTags,
+                                        userTags: gameForm.tags,
                                       );
                                     }
                                   } else if (state == .waiting) {
@@ -377,7 +374,7 @@ class _AddGameState extends State<AddGame> {
                             },
                           );
                           setState(() {
-                            selectedTags = retrievedTags;
+                            gameForm.tags = retrievedTags;
                           });
                         },
                         child: Text("Mostrar tags"),
