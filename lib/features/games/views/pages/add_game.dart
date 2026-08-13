@@ -45,14 +45,15 @@ class _AddGameState extends State<AddGame> {
           child: SizedBox(
             height: 56,
             child: ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 if (_formKey.currentState!.validate()) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Processando dados')),
                   );
+
+                  await addGameViewModel.saveGame();
                 }
               },
-              // [TODO] - Lógica pra salvar o jogo
               style: ElevatedButton.styleFrom(
                 elevation: 4,
                 shape: StadiumBorder(),
