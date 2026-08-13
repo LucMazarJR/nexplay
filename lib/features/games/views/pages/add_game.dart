@@ -132,11 +132,9 @@ class _AddGameState extends State<AddGame> {
                               onChanged: (value) {
                                 if (value is int) {
                                   setState(() {
-                                    gameForm.genre = snapshot
-                                        .data
-                                        ?.firstWhere(
-                                          (genre) => genre.id == value,
-                                        );
+                                    gameForm.genre = snapshot.data?.firstWhere(
+                                      (genre) => genre.id == value,
+                                    );
                                   });
                                 }
                               },
@@ -192,11 +190,10 @@ class _AddGameState extends State<AddGame> {
                               padding: const EdgeInsets.symmetric(vertical: 6),
                               child: SegmentedButton<GameStatus>(
                                 style: SegmentedButton.styleFrom(
-                                  
                                   textStyle: const TextStyle(
                                     fontSize: 12,
                                     fontWeight: .w700,
-                                    overflow: .ellipsis
+                                    overflow: .ellipsis,
                                   ),
                                 ),
                                 segments: [
@@ -238,6 +235,13 @@ class _AddGameState extends State<AddGame> {
                       hint: Text("Digite aqui o falta ser feito no jogo"),
                       border: OutlineInputBorder(),
                     ),
+                    validator: (value) {
+                      if (value == null && gameForm.status == .continuar) {
+                        return "Digite o que falta para completar o jogo";
+                      }
+                      return null;
+                    },
+                    onChanged: (value) => gameForm.name = value,
                     minLines: 1,
                     maxLines: 5,
                   )
