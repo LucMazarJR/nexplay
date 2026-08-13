@@ -47,11 +47,23 @@ class _AddGameState extends State<AddGame> {
             child: ElevatedButton(
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Processando dados')),
-                  );
+                  if (!addGameViewModel.isSaving) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Processando dados...")),
+                    );
 
-                  await addGameViewModel.saveGame();
+                    await addGameViewModel.saveGame();
+
+                    if (!context.mounted) return;
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: addGameViewModel.hasError
+                            ? Text("Erro ao salvar jogo, tente novamente")
+                            : Text("Jogo salvo com sucesso!"),
+                      ),
+                    );
+                  }
                 }
               },
               style: ElevatedButton.styleFrom(

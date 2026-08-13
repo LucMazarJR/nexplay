@@ -7,8 +7,19 @@ class AddGameViewModel {
 
   GameForm gameForm = GameForm(.nenhum);
 
+  bool isSaving = false;
+  bool hasError = false;
+
   Future<void> saveGame() async {
-    await gamesDatabase.saveGame(_toGame());
+    try {
+      hasError = false;
+      isSaving = true;
+      await gamesDatabase.saveGame(_toGame());
+    } catch (err) {
+      hasError = true;
+    } finally {
+      isSaving = false;
+    }
   }
 
   Game _toGame() {
@@ -19,7 +30,7 @@ class AddGameViewModel {
       toDoDescription: gameForm.toDoDescription,
       rating: gameForm.rating,
       tags: gameForm.tags,
-      imagePath: gameForm.imagePath
+      imagePath: gameForm.imagePath,
     );
   }
 
