@@ -63,7 +63,7 @@ class AppDatabase {
       CREATE TABLE  tb_games (
         id_game INTEGER PRIMARY KEY,
         name TEXT NOT NULL,
-        status TEXT NOT NULL CHECK (status IN ('novo', 'continuar', 'jogando', 'finalizado', 'abandonado')),
+        status TEXT NOT NULL CHECK (status IN ('novo', 'continuar', 'jogando', 'finalizado', 'abandonado', 'nenhum')),
         rating REAL,
         toDoDescription TEXT,
         imagePath TEXT,

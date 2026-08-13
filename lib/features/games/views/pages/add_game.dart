@@ -158,7 +158,7 @@ class _AddGameState extends State<AddGame> {
                       child: FormField<GameStatus>(
                         initialValue: gameForm.status,
                         validator: (value) {
-                          if (value == null) {
+                          if (value == .nenhum) {
                             return 'Selecione o status do jogo';
                           }
                           return null;
@@ -238,7 +238,7 @@ class _AddGameState extends State<AddGame> {
                       }
                       return null;
                     },
-                    onChanged: (value) => gameForm.name = value,
+                    onChanged: (value) => gameForm.toDoDescription = value,
                     minLines: 1,
                     maxLines: 5,
                   )
