@@ -65,8 +65,8 @@ class AppDatabase {
         name TEXT NOT NULL,
         status TEXT NOT NULL CHECK (status IN ('novo', 'continuar', 'jogando', 'finalizado', 'abandonado', 'nenhum')),
         rating REAL,
-        toDoDescription TEXT,
-        imagePath TEXT,
+        to_do_description TEXT,
+        image_path TEXT,
         id_genre INTEGER,
         FOREIGN KEY (id_genre) REFERENCES tb_genres(id_genre) ON DELETE SET NULL
       )
@@ -100,7 +100,7 @@ class AppDatabase {
     if (oldVersion < 2) {
       await db.execute('''ALTER TABLE tb_games ADD COLUMN rating REAL''');
       await db.execute(
-        '''ALTER TABLE tb_games ADD COLUMN toDoDescription TEXT''',
+        '''ALTER TABLE tb_games ADD COLUMN to_do_description TEXT''',
       );
     }
   }
