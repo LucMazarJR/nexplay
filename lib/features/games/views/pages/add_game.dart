@@ -286,7 +286,7 @@ class _AddGameState extends State<AddGame> {
                               ),
                             ),
                             onRatingUpdate: (rating) {
-                              // Tratamento futuro do formulário
+                              gameForm.rating = rating;
                             },
                             glow: false,
                           ),
