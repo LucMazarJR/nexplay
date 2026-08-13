@@ -56,6 +56,7 @@ class _AddGameState extends State<AddGame> {
                   );
                 }
               },
+              // [TODO] - Lógica pra salvar o jogo
               style: ElevatedButton.styleFrom(
                 elevation: 4,
                 shape: StadiumBorder(),
@@ -84,6 +85,7 @@ class _AddGameState extends State<AddGame> {
               crossAxisAlignment: .start,
               spacing: 20,
               children: [
+                // [TODO] - Descobrir como salvar imagem dentro do dispositivo
                 UploadPhoto(),
                 TextFormField(
                   decoration: InputDecoration(
