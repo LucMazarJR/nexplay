@@ -1,4 +1,5 @@
 enum GameStatus {
+  nenhum,
   novo,
   continuar,
   jogando,

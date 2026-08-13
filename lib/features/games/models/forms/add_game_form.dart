@@ -4,12 +4,12 @@ import 'package:nexplay/features/games/models/enum/add_game_form.dart';
 
 class GameForm {
   String? name;
-  GameStatus? status;
+  GameStatus status;
   Genre? genre;
   Set<Tag>? tags;
   String? toDoDescription;
   double? rating;
   String? imagePath;
 
-  GameForm();
+  GameForm(this.status);
 }

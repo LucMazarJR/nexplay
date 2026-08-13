@@ -30,11 +30,11 @@ class _AddGameState extends State<AddGame> {
 
   int selected = 0;
   Set<Tag>? selectedTags;
-  GameStatus gameStatusView = GameStatus.novo;
 
   @override
   Widget build(BuildContext context) {
     final themeColors = Theme.of(context).colorScheme;
+    final gameForm = addGameViewModel.gameForm;
 
     return Scaffold(
       appBar: AppBar(
@@ -92,7 +92,7 @@ class _AddGameState extends State<AddGame> {
                     hint: Text("Digite aqui o nome do jogo"),
                     labelText: "Nome",
                   ),
-                  onChanged: (value) => addGameViewModel.gameForm.name = value,
+                  onChanged: (value) => gameForm.name = value,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor, insira algum texto';
@@ -132,7 +132,7 @@ class _AddGameState extends State<AddGame> {
                               onChanged: (value) {
                                 if (value is int) {
                                   setState(() {
-                                    addGameViewModel.gameForm.genre = snapshot
+                                    gameForm.genre = snapshot
                                         .data
                                         ?.firstWhere(
                                           (genre) => genre.id == value,
@@ -161,7 +161,7 @@ class _AddGameState extends State<AddGame> {
                   children: [
                     Expanded(
                       child: FormField<GameStatus>(
-                        initialValue: gameStatusView,
+                        initialValue: gameForm.status,
                         validator: (value) {
                           if (value == null) {
                             return 'Selecione o status do jogo';
@@ -192,15 +192,17 @@ class _AddGameState extends State<AddGame> {
                               padding: const EdgeInsets.symmetric(vertical: 6),
                               child: SegmentedButton<GameStatus>(
                                 style: SegmentedButton.styleFrom(
+                                  
                                   textStyle: const TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    fontWeight: .w700,
+                                    overflow: .ellipsis
                                   ),
                                 ),
-                                segments: const [
+                                segments: [
                                   ButtonSegment(
                                     value: GameStatus.novo,
-                                    label: Text('Novo'),
+                                    label: Text("Novo"),
                                   ),
                                   ButtonSegment(
                                     value: GameStatus.continuar,
@@ -211,12 +213,12 @@ class _AddGameState extends State<AddGame> {
                                     label: Text('Finalizado'),
                                   ),
                                 ],
-                                selected: {gameStatusView},
+                                selected: {gameForm.status},
                                 onSelectionChanged: (newSelection) {
                                   final newValue = newSelection.first;
 
                                   setState(() {
-                                    gameStatusView = newValue;
+                                    gameForm.status = newValue;
                                   });
 
                                   field.didChange(newValue);
@@ -229,7 +231,7 @@ class _AddGameState extends State<AddGame> {
                     ),
                   ],
                 ),
-                if (gameStatusView == .continuar)
+                if (gameForm.status == .continuar)
                   TextFormField(
                     decoration: InputDecoration(
                       label: Text("O que falta?"),
@@ -239,7 +241,7 @@ class _AddGameState extends State<AddGame> {
                     minLines: 1,
                     maxLines: 5,
                   )
-                else if (gameStatusView == .finalizado)
+                else if (gameForm.status == .finalizado)
                   FormField(
                     builder: (field) {
                       return InputDecorator(
