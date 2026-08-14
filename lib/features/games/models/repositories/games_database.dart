@@ -1,4 +1,6 @@
+import 'package:nexplay/features/games/models/class/game_list_item.dart';
 import 'package:nexplay/features/games/models/class/games.dart';
+import 'package:nexplay/features/games/models/enum/add_game_form.dart';
 import 'package:nexplay/features/games/models/repositories/app_database.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -24,5 +26,22 @@ class GamesDatabase {
 
       await batch.commit();
     });
+  }
+
+  Future<List<GameListItem>> getAllGames() async {
+    Database db = await AppDatabase().getDatabase();
+
+    var rawData = await db.query('tb_games');
+    List<GameListItem> data = rawData
+        .map(
+          (row) => GameListItem(
+            name: row["name"] as String,
+            status: GameStatus.values.byName(row["status"] as String),
+            id: row["id_game"] as int,
+            rating: row["rating"] as double,
+          ),
+        )
+        .toList();
+    return data;
   }
 }
