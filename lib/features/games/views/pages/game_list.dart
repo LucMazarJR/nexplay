@@ -69,13 +69,7 @@ class _GameListState extends State<GameList> {
                       ),
                       SizedBox(height: 5),
                       ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const AddGame(),
-                            ),
-                          );
-                        },
+                        onPressed: () {},
                         style: ElevatedButton.styleFrom(
                           backgroundColor: themeColors.primary,
                           foregroundColor: themeColors.onPrimary,
@@ -149,6 +143,13 @@ class _GameListState extends State<GameList> {
               ),
             ),
           );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(
+            context,
+          ).push(MaterialPageRoute(builder: (context) => AddGame()));
         },
       ),
     );
