@@ -102,7 +102,15 @@ class _GameListState extends State<GameList> {
               return SingleChildScrollView(
                 child: Column(
                   children: asyncSnapshot.data!.map((game) {
-                    return Text(game.name);
+                    return Container(
+                      decoration: BoxDecoration(
+                        color: themeColors.surfaceContainer,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(children: [Text(game.name)]),
+                      ),
+                    );
                   }).toList(),
                 ),
               );
