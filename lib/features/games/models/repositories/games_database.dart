@@ -38,7 +38,7 @@ class GamesDatabase {
             name: row["name"] as String,
             status: GameStatus.values.byName(row["status"] as String),
             id: row["id_game"] as int,
-            rating: row["rating"] as double,
+            rating: (row["rating"] ?? 0.0) as double,
           ),
         )
         .toList();
