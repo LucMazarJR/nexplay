@@ -67,27 +67,6 @@ class _GameListState extends State<GameList> {
                         style: TextStyle(fontSize: 16),
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(height: 5),
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: themeColors.primary,
-                          foregroundColor: themeColors.onPrimary,
-                        ),
-                        child: Row(
-                          spacing: 5,
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Icon(Icons.add, size: 20),
-                            Text(
-                              'Adicionar jogo',
-                              style: TextStyle(fontSize: 15),
-                            ),
-                          ],
-                        ),
-                      ),
                     ],
                   ),
                 ),
