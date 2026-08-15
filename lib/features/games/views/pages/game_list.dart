@@ -127,10 +127,13 @@ class _GameListState extends State<GameList> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(
+        onPressed: () async {
+          await Navigator.of(
             context,
           ).push(MaterialPageRoute(builder: (context) => AddGame()));
+          setState(() {
+            _gamesListViewModel.refresh();
+          });
         },
         shape: CircleBorder(),
         child: Icon(Icons.add),

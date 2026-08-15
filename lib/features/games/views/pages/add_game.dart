@@ -63,6 +63,10 @@ class _AddGameState extends State<AddGame> {
                             : Text("Jogo salvo com sucesso!"),
                       ),
                     );
+
+                    if (!addGameViewModel.hasError) {
+                      Navigator.pop(context);
+                    }
                   }
                 }
               },
