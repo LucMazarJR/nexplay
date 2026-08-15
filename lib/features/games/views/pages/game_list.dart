@@ -84,11 +84,7 @@ class _GameListState extends State<GameList> {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(6),
-                      child: Row(
-                        children: [
-                          Text(game.name),
-                        ],
-                      ),
+                      child: Row(children: [Text(game.name)]),
                     ),
                   );
                 },
@@ -136,6 +132,8 @@ class _GameListState extends State<GameList> {
             context,
           ).push(MaterialPageRoute(builder: (context) => AddGame()));
         },
+        shape: CircleBorder(),
+        child: Icon(Icons.add),
       ),
     );
   }
