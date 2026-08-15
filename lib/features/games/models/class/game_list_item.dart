@@ -1,4 +1,4 @@
-import 'package:nexplay/features/games/models/enum/add_game_form.dart';
+import 'package:nexplay/features/games/models/enum/game_status.dart';
 
 class GameListItem {
   int id;

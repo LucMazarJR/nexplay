@@ -1,6 +1,6 @@
 import 'package:nexplay/features/games/models/class/game_list_item.dart';
 import 'package:nexplay/features/games/models/class/games.dart';
-import 'package:nexplay/features/games/models/enum/add_game_form.dart';
+import 'package:nexplay/features/games/models/enum/game_status.dart';
 import 'package:nexplay/features/games/models/repositories/app_database.dart';
 import 'package:sqflite/sqflite.dart';
 

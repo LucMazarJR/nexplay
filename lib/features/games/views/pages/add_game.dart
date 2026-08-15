@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:nexplay/features/games/models/class/genres.dart';
-import 'package:nexplay/features/games/models/enum/add_game_form.dart';
+import 'package:nexplay/features/games/models/enum/game_status.dart';
 import 'package:nexplay/features/games/models/class/tags.dart';
 import 'package:nexplay/features/games/models/repositories/genres_database.dart';
 import 'package:nexplay/features/games/models/repositories/tags_database.dart';

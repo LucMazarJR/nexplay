@@ -1,6 +1,6 @@
 import 'package:nexplay/features/games/models/class/genres.dart';
 import 'package:nexplay/features/games/models/class/tags.dart';
-import 'package:nexplay/features/games/models/enum/add_game_form.dart';
+import 'package:nexplay/features/games/models/enum/game_status.dart';
 
 class Game {
   final int? id;
