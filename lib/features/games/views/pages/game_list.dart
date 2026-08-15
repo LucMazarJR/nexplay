@@ -72,20 +72,26 @@ class _GameListState extends State<GameList> {
                 ),
               );
             } else {
-              return SingleChildScrollView(
-                child: Column(
-                  children: asyncSnapshot.data!.map((game) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        color: themeColors.surfaceContainer,
+              return ListView.builder(
+                itemCount: asyncSnapshot.data!.length,
+                itemBuilder: (context, index) {
+                  var game = asyncSnapshot.data![index];
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: index % 2 == 0
+                          ? themeColors.surfaceContainer
+                          : themeColors.surface,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(6),
+                      child: Row(
+                        children: [
+                          Text(game.name),
+                        ],
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(children: [Text(game.name)]),
-                      ),
-                    );
-                  }).toList(),
-                ),
+                    ),
+                  );
+                },
               );
             }
           }
