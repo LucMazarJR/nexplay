@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nexplay/features/games/models/enum/game_status.dart';
+import 'package:nexplay/features/games/models/enum/game_status_style.dart';
 import 'package:nexplay/features/games/models/repositories/games_database.dart';
 import 'package:nexplay/features/games/viewmodels/games_list_view_model.dart';
 import 'package:nexplay/features/games/views/pages/add_game.dart';
@@ -88,7 +89,7 @@ class _GameListState extends State<GameList> {
                       child: Row(
                         mainAxisAlignment: .spaceBetween,
                         children: [
-                          Text('${game.name}'),
+                          Text(game.name),
                           Row(
                             mainAxisAlignment: .end,
                             mainAxisSize: .min,
@@ -98,11 +99,11 @@ class _GameListState extends State<GameList> {
                               ),
                               Container(
                                 decoration: BoxDecoration(
-                                  color: game.status == .
+                                  color: game.status.backgroundColor
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(1),
-                                  child: Text('${game.status.name}'),
+                                  child: Text(game.status.name),
                                 ),
                               ),
                             ],
