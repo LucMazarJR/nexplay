@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nexplay/features/games/models/enum/add_game_form.dart';
 import 'package:nexplay/features/games/models/repositories/games_database.dart';
 import 'package:nexplay/features/games/viewmodels/games_list_view_model.dart';
 import 'package:nexplay/features/games/views/pages/add_game.dart';
@@ -84,7 +85,22 @@ class _GameListState extends State<GameList> {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(6),
-                      child: Row(children: [Text(game.name)]),
+                      child: Row(
+                        mainAxisAlignment: .spaceBetween,
+                        children: [
+                          Text('${game.id}.${game.name}'),
+                          Row(
+                            mainAxisAlignment: .end,
+                            mainAxisSize: .min,
+                            children: [
+                              Text(
+                                '${game.status == GameStatus.finalizado ? game.rating : ''}',
+                              ),
+                              Text('${game.status.name}'),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },
