@@ -88,22 +88,34 @@ class _GameListState extends State<GameList> {
                       padding: const EdgeInsets.all(10),
                       child: Row(
                         mainAxisAlignment: .spaceBetween,
+                        crossAxisAlignment: .center,
                         children: [
                           Text(game.name),
                           Row(
                             mainAxisAlignment: .end,
                             mainAxisSize: .min,
                             children: [
+                              if (game.status == GameStatus.finalizado)
                               Text(
-                                '${game.status == GameStatus.finalizado ? game.rating : ''}',
+                                '${game.rating}',
+                                style: TextStyle(color: Colors.amber, fontWeight: .bold, fontSize: 16),
                               ),
+                              if (game.status == GameStatus.finalizado)
+                              Icon(Icons.star, color: Colors.amber,),
+                              SizedBox(width: 4),
                               Container(
                                 decoration: BoxDecoration(
-                                  color: game.status.backgroundColor
+                                  color: game.status.backgroundColor,
+                                  borderRadius: .circular(8)
                                 ),
                                 child: Padding(
-                                  padding: const EdgeInsets.all(1),
-                                  child: Text(game.status.name),
+                                  padding: const EdgeInsets.all(2),
+                                  child: Text(
+                                    game.status.name,
+                                    style: TextStyle(
+                                      color: game.status.textColor,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
