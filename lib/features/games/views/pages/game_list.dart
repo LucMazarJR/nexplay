@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nexplay/core/util.dart';
 import 'package:nexplay/features/games/models/enum/game_status.dart';
 import 'package:nexplay/features/games/models/enum/game_status_style.dart';
 import 'package:nexplay/features/games/models/repositories/games_database.dart';
@@ -79,41 +80,55 @@ class _GameListState extends State<GameList> {
                 itemBuilder: (context, index) {
                   var game = asyncSnapshot.data![index];
                   return Container(
+                    height: 40,
                     decoration: BoxDecoration(
                       color: index % 2 == 0
                           ? themeColors.surfaceContainer
                           : themeColors.surface,
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                       child: Row(
                         mainAxisAlignment: .spaceBetween,
                         crossAxisAlignment: .center,
                         children: [
-                          Text(game.name),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(game.name),
+                          ),
                           Row(
                             mainAxisAlignment: .end,
                             mainAxisSize: .min,
                             children: [
                               if (game.status == GameStatus.finalizado)
-                              Text(
-                                '${game.rating}',
-                                style: TextStyle(color: Colors.amber, fontWeight: .bold, fontSize: 16),
-                              ),
+                                Text(
+                                  '${game.rating}',
+                                  style: TextStyle(
+                                    color: Colors.amber,
+                                    fontWeight: .bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
                               if (game.status == GameStatus.finalizado)
-                              Icon(Icons.star, color: Colors.amber,),
+                                Icon(Icons.star, color: Colors.amber),
                               SizedBox(width: 4),
                               Container(
+                                height: double.infinity,
+                                width: 90,
                                 decoration: BoxDecoration(
                                   color: game.status.backgroundColor,
-                                  borderRadius: .circular(2)
                                 ),
                                 child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                                  child: Text(
-                                    game.status.name,
-                                    style: TextStyle(
-                                      color: game.status.textColor,
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 3,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      toTitleCase(game.status.name),
+                                      style: TextStyle(
+                                        color: game.status.textColor,
+                                      ),
                                     ),
                                   ),
                                 ),
