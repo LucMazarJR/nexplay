@@ -106,10 +106,10 @@ class _GameListState extends State<GameList> {
                               Container(
                                 decoration: BoxDecoration(
                                   color: game.status.backgroundColor,
-                                  borderRadius: .circular(8)
+                                  borderRadius: .circular(2)
                                 ),
                                 child: Padding(
-                                  padding: const EdgeInsets.all(2),
+                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                                   child: Text(
                                     game.status.name,
                                     style: TextStyle(
