@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nexplay/core/util.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:nexplay/features/games/models/enum/game_status.dart';
 import 'package:nexplay/features/games/models/enum/game_status_style.dart';
 import 'package:nexplay/features/games/models/repositories/games_database.dart';
@@ -114,9 +114,24 @@ class _GameListState extends State<GameList> {
                               SizedBox(width: 4),
                               Container(
                                 height: double.infinity,
-                                width: 90,
+                                width: 110,
                                 decoration: BoxDecoration(
-                                  color: game.status.backgroundColor,
+                                  border: BoxBorder.fromLTRB(
+                                    left: BorderSide(
+                                      width: 8,
+                                      color: game.status.borderColor,
+                                    ),
+                                  ),
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                    colors: [
+                                      game.status.backgroundColor,
+                                      game.status.backgroundColor.withValues(
+                                        alpha: 0.6,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -125,9 +140,12 @@ class _GameListState extends State<GameList> {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      toTitleCase(game.status.name),
-                                      style: TextStyle(
+                                      game.status.name.toUpperCase(),
+                                      style: GoogleFonts.fredoka(
+                                        letterSpacing: 0,
                                         color: game.status.textColor,
+                                        fontWeight: .w600,
+                                        fontSize: 12,
                                       ),
                                     ),
                                   ),
