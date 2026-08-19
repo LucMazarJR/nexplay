@@ -19,13 +19,4 @@ extension GameStatusStyle on GameStatus {
     GameStatus.finalizado => const Color.fromARGB(255, 11, 45, 13),
     GameStatus.abandonado => Colors.grey[900] ?? Colors.grey,
   };
-
-  Color get borderColor => switch (this) {
-    GameStatus.novo => const Color.fromARGB(255, 1, 102, 255),
-    GameStatus.nenhum => Colors.white,
-    GameStatus.continuar => const Color.fromARGB(255, 193, 68, 0),
-    GameStatus.jogando => Colors.purple[900] ?? Colors.purple,
-    GameStatus.finalizado => const Color.fromARGB(255, 0, 112, 7),
-    GameStatus.abandonado => Colors.grey[900] ?? Colors.grey,
-  };
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nexplay/core/theme.dart';
 import 'package:nexplay/features/games/models/enum/game_status.dart';
 import 'package:nexplay/features/games/models/enum/game_status_style.dart';
 import 'package:nexplay/features/games/models/repositories/games_database.dart';
@@ -83,8 +84,8 @@ class _GameListState extends State<GameList> {
                     height: 40,
                     decoration: BoxDecoration(
                       color: index % 2 == 0
-                          ? themeColors.surfaceContainer
-                          : themeColors.surface,
+                          ? AppColors.rowEven
+                          : AppColors.rowOdd,
                     ),
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
@@ -114,21 +115,15 @@ class _GameListState extends State<GameList> {
                               SizedBox(width: 4),
                               Container(
                                 height: double.infinity,
-                                width: 110,
+                                width: 90,
                                 decoration: BoxDecoration(
-                                  border: BoxBorder.fromLTRB(
-                                    left: BorderSide(
-                                      width: 8,
-                                      color: game.status.borderColor,
-                                    ),
-                                  ),
                                   gradient: LinearGradient(
                                     begin: Alignment.topLeft,
                                     end: Alignment.bottomRight,
                                     colors: [
                                       game.status.backgroundColor,
                                       game.status.backgroundColor.withValues(
-                                        alpha: 0.6,
+                                        alpha: 0.8,
                                       ),
                                     ],
                                   ),
