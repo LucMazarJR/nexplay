@@ -6,6 +6,7 @@ import 'package:nexplay/features/games/models/enum/game_status_style.dart';
 import 'package:nexplay/features/games/models/repositories/games_database.dart';
 import 'package:nexplay/features/games/viewmodels/games_list_view_model.dart';
 import 'package:nexplay/features/games/views/pages/add_game.dart';
+import 'package:nexplay/features/games/views/pages/game_view.dart';
 
 class GameList extends StatefulWidget {
   const GameList({super.key});
@@ -80,75 +81,82 @@ class _GameListState extends State<GameList> {
                 itemCount: asyncSnapshot.data!.length,
                 itemBuilder: (context, index) {
                   var game = asyncSnapshot.data![index];
-                  return Container(
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: index % 2 == 0
-                          ? AppColors.rowEven
-                          : AppColors.rowOdd,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                      child: Row(
-                        mainAxisAlignment: .spaceBetween,
-                        crossAxisAlignment: .center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(game.name),
-                          ),
-                          Row(
-                            mainAxisAlignment: .end,
-                            mainAxisSize: .min,
-                            children: [
-                              if (game.status == GameStatus.finalizado)
-                                Text(
-                                  '${game.rating}',
-                                  style: TextStyle(
-                                    color: Colors.amber,
-                                    fontWeight: .bold,
-                                    fontSize: 16,
+                  return GestureDetector(
+                    onTap: () async {
+                      await Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => GameView()),
+                      );
+                    },
+                    child: Container(
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: index % 2 == 0
+                            ? AppColors.rowEven
+                            : AppColors.rowOdd,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                        child: Row(
+                          mainAxisAlignment: .spaceBetween,
+                          crossAxisAlignment: .center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(game.name),
+                            ),
+                            Row(
+                              mainAxisAlignment: .end,
+                              mainAxisSize: .min,
+                              children: [
+                                if (game.status == GameStatus.finalizado)
+                                  Text(
+                                    '${game.rating}',
+                                    style: TextStyle(
+                                      color: Colors.amber,
+                                      fontWeight: .bold,
+                                      fontSize: 16,
+                                    ),
                                   ),
-                                ),
-                              if (game.status == GameStatus.finalizado)
-                                Icon(Icons.star, color: Colors.amber),
-                              SizedBox(width: 4),
-                              Container(
-                                height: double.infinity,
-                                width: 90,
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                    colors: [
-                                      game.status.backgroundColor,
-                                      game.status.backgroundColor.withValues(
-                                        alpha: 0.8,
-                                      ),
-                                    ],
+                                if (game.status == GameStatus.finalizado)
+                                  Icon(Icons.star, color: Colors.amber),
+                                SizedBox(width: 4),
+                                Container(
+                                  height: double.infinity,
+                                  width: 90,
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                      colors: [
+                                        game.status.backgroundColor,
+                                        game.status.backgroundColor.withValues(
+                                          alpha: 0.8,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 8,
-                                    vertical: 3,
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      game.status.name.toUpperCase(),
-                                      style: GoogleFonts.fredoka(
-                                        letterSpacing: 0,
-                                        color: game.status.textColor,
-                                        fontWeight: .w600,
-                                        fontSize: 12,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 8,
+                                      vertical: 3,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        game.status.name.toUpperCase(),
+                                        style: GoogleFonts.fredoka(
+                                          letterSpacing: 0,
+                                          color: game.status.textColor,
+                                          fontWeight: .w600,
+                                          fontSize: 12,
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   );
