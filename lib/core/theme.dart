@@ -25,7 +25,7 @@ class MaterialTheme {
       onError: Color(0xffffffff),
       errorContainer: Color(0xffb3261e),
       onErrorContainer: Color(0xffffcbc4),
-      surface: Color(0xfffdf8f8),
+      surface: Color(0xfff9f7ff),
       onSurface: Color(0xff1c1b1c),
       onSurfaceVariant: Color(0xff494551),
       outline: Color(0xff7a7582),
@@ -386,6 +386,6 @@ class ColorFamily {
 }
 
 class AppColors {
-  static const rowEven = Color.fromARGB(255, 242, 247, 255);
-  static const rowOdd = Color.fromARGB(255, 250, 252, 255);
+  static const rowEven = Color.fromARGB(255, 242, 239, 255);
+  static const rowOdd = Color.fromARGB(255, 229, 222, 255);
 }
