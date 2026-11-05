@@ -28,10 +28,27 @@ class GamesDatabase {
     });
   }
 
-  Future<List<GameListItem>> getAllGames() async {
+  Future<List<GameListItem>> getAllGamesListItems() async {
     Database db = await AppDatabase().getDatabase();
 
     var rawData = await db.query('tb_games');
+    List<GameListItem> data = rawData
+        .map(
+          (row) => GameListItem(
+            name: row["name"] as String,
+            status: GameStatus.values.byName(row["status"] as String),
+            id: row["id_game"] as int,
+            rating: (row["rating"] ?? 0.0) as double,
+          ),
+        )
+        .toList();
+    return data;
+  }
+
+  Future<List<GameListItem>> getGame(int gameId) async {
+    Database db = await AppDatabase().getDatabase();
+
+    var rawData = await db.query('tb_games', where: "id_game = $gameId");
     List<GameListItem> data = rawData
         .map(
           (row) => GameListItem(

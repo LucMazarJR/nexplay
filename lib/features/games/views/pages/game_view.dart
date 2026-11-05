@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class GameView extends StatefulWidget {
-  const GameView({super.key});
+  const GameView(int id, {super.key});
 
   @override
   State<GameView> createState() => _GameViewState();
@@ -9,9 +9,12 @@ class GameView extends StatefulWidget {
 
 class _GameViewState extends State<GameView> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      
-    );
+    return const Scaffold();
   }
 }

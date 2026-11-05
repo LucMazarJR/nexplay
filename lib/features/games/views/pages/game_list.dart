@@ -84,7 +84,9 @@ class _GameListState extends State<GameList> {
                   return GestureDetector(
                     onTap: () async {
                       await Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => GameView()),
+                        MaterialPageRoute(
+                          builder: (context) => GameView(game.id),
+                        ),
                       );
                     },
                     child: Container(
